@@ -44,7 +44,7 @@
 
  #define RF95_FREQ 923.0
 
- #define PACKET_BYTES 16
+ #define PACKET_BYTES 18
  #define TEMP_MESSAGE_NUM 20
 
 //Singleton instance of the radio driver
@@ -55,7 +55,7 @@ Adafruit_BME280 bme(BME_CS); // hardware SPI
 
 uint8_t address; //Node's address
 
-uint8_t addr_list[256]; //list of nodes connected to this one
+uint8_t addr_list[16]; //list of nodes connected to this one
 int num_addr; //Number of nodes connected to this one
 
 uint8_t messages[10]; //List of previous 10 received message identifiers
@@ -69,6 +69,7 @@ typedef struct {
   float humidity;
   uint16_t water_level;
   uint16_t wind_speed;
+  uint16_t cal_temp;
 } sensor_data;
 
 sensor_data sensors = {
@@ -76,34 +77,8 @@ sensor_data sensors = {
   .humidity = 0,
   .water_level = 0,
   .wind_speed = 0,
+  .cal_temp = 0,
 };
-
-
-/*Function: hexToDec
- * Description: Takes in a hex character as input and returns its decimal equivalent
- * Parameters: Character from 0-F
- */
-int hexToDec(char c){
-  if(c >= '0' && c <= '9'){
-    return c - '0';
-  }
-  switch (c){
-    case 'A':
-      return 10;
-    case 'B':
-      return 11;
-    case 'C':
-      return 12;
-    case 'D':
-      return 13;
-    case 'E':
-      return 14;
-    case 'F':
-      return 15;
-    default:
-      return 0;
-  }
-}
 
 
 
@@ -263,17 +238,17 @@ void read_sensors(){
 
   // start by initializing the bme280
   
-  /* COMMENTED OUT TEMPORARY
   bme.begin();
-  */
+  
 
   // read the temperature and humidity from the BME280
-  sensors.temp = 15.1; // bme.readTemperature();
-  sensors.humidity = 20.4; // bme.readHumidity();
+  sensors.temp = bme.readTemperature();
+  sensors.humidity = bme.readHumidity();
   
   // read the analog pins directly
-  sensors.wind_speed = 127; // analogRead(A0);
-  sensors.water_level = 84; // analogRead(A1);
+  sensors.wind_speed = analogRead(A1);
+  sensors.cal_temp = analogRead(A0);
+  sensors.water_level = analogRead(A2);
 }
 
 
@@ -291,7 +266,7 @@ void create_packet(){
   sensor_data_packet[2] = address;
   sensor_data_packet[3] = 0; // sending message data to the host node
 
-  memcpy(sensor_data_packet + 4, &sensors, 12);
+  memcpy(sensor_data_packet + 4, &sensors, 14);
 }
 
 /******************************************************************************
@@ -305,6 +280,12 @@ void setup() {
   randomSeed(analogRead(7));
   pinMode(RFM95_RST, OUTPUT);
   digitalWrite(RFM95_RST, HIGH);
+
+  /*IMPORTANT: DO NOT CHANGE THIS OR IT WILL FRY A PIN*/
+  pinMode(4, OUTPUT);
+  digitalWrite(4, LOW);
+
+  /*Ok, you can change stuff after here*/
 
   num_addr = 0;
   message_index = 0;
@@ -365,7 +346,7 @@ void setup() {
      * address request until it gets a reply.
      */
 
-     /*** BME280 Temp / Humidity Sensor Init /
+    /* BME280 Temp / Humidity Sensor Init */
     if (! bme.begin()) {
         Serial.println(F("Could not find a valid BME280 sensor, check wiring!"));
         while (1);
