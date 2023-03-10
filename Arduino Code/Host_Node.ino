@@ -37,7 +37,7 @@
  RH_RF95 rf95(RFM95_CS, RFM95_INT);
 
 //Address catalog
-uint8_t addresses[256];
+uint8_t addresses[16];
 int num_addresses;
 
 uint8_t messages[20];
@@ -49,6 +49,7 @@ typedef struct{
   float humidity;
   uint16_t water_level;
   uint16_t wind_speed;
+  uint16_t cal_temp;
 }sensor_data;
 
 sensor_data readings[16];
@@ -122,7 +123,7 @@ void address_request(uint8_t *buf, uint8_t len){
   Serial.println(F("Received test sensor packet"));
   //readings[buf[2]].identifier = buf[2];
 
-  memcpy(&readings[buf[2]], buf + 4, 12);
+  memcpy(&readings[buf[2]], buf + 4, 14);
   /*
   readings[buf[2]].temperature = buf_2;
   
@@ -137,8 +138,10 @@ void address_request(uint8_t *buf, uint8_t len){
   Serial.println(readings[buf[2]].wind_speed);
   Serial.print(F("Water Level: "));
   Serial.println(readings[buf[2]].water_level);
+  Serial.print(F("Cal Temp: "));
+  Serial.println(readings[buf[2]].cal_temp);
 
-  sender = buf[2];
+  uint8_t sender = buf[2];
   buf[2] = 0;
   buf[3] = sender;
   buf[4] = 'A';
