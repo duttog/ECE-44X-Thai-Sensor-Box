@@ -54,6 +54,8 @@ typedef struct{
 
 sensor_data readings[16];
 
+const float zeroWindAdjustment =  0.05; // negative numbers yield smaller wind speeds and vice versa.
+
 
 /*****************************************************************************
  * Function: address_request
@@ -105,10 +107,11 @@ void address_request(uint8_t *buf, uint8_t len){
   rf95.waitPacketSent();
 
   /*Printing for network testing*/
+  /*
   Serial.print(F("Address assigned on message "));
   Serial.print(char (buf[1]));
   Serial.print(F(" is "));
-  Serial.println(addr);
+  Serial.println(addr);*/
   
 }
 
@@ -120,26 +123,44 @@ void address_request(uint8_t *buf, uint8_t len){
  ************************************************************************************************/
  void read_sensor_data(uint8_t *buf, uint8_t len){
 
-  Serial.println(F("Received test sensor packet"));
+  //Serial.println(F("Received test sensor packet"));
   //readings[buf[2]].identifier = buf[2];
 
   memcpy(&readings[buf[2]], buf + 4, 14);
-  /*
-  readings[buf[2]].temperature = buf_2;
+
+  int TMP_Therm_ADunits;
+  float RV_Wind_ADunits;
+  float RV_Wind_Volts;
+  int TempCtimes100;
+  float zeroWind_ADunits;
+  float zeroWind_volts;
+  float WindSpeed_MPH;
+
+  TMP_Therm_ADunits = readings[buf[2]].wind_speed;
+  RV_Wind_ADunits = readings[buf[2]].cal_temp;
+  RV_Wind_Volts = (RV_Wind_ADunits * 0.0048828125);
+
+  TempCtimes100 = (0.005 *((float)TMP_Therm_ADunits * (float)TMP_Therm_ADunits)) - (16.862 * (float)TMP_Therm_ADunits) + 9075.4;  
+
+  zeroWind_ADunits = -0.0006*((float)TMP_Therm_ADunits * (float)TMP_Therm_ADunits) + 1.0727 * (float)TMP_Therm_ADunits + 47.172;  //  13.0C  553  482.39
+
+  zeroWind_volts = (zeroWind_ADunits * 0.0048828125) - zeroWindAdjustment;
+  WindSpeed_MPH =  pow(((RV_Wind_Volts - zeroWind_volts) /.2300) , 2.7265);
   
-  readings[buf[2]].humidity = buf_2;
-  readings[buf[2]].water_level = *(&buf[12]);
-  readings[buf[2]].wind_speed = *(&buf[14]);*/
-  Serial.print(F("Temp: "));
-  Serial.println(readings[buf[2]].temperature);
-  Serial.print(F("Humidity: "));
-  Serial.println(readings[buf[2]].humidity);
-  Serial.print(F("Wind Speed: "));
-  Serial.println(readings[buf[2]].wind_speed);
-  Serial.print(F("Water Level: "));
-  Serial.println(readings[buf[2]].water_level);
-  Serial.print(F("Cal Temp: "));
-  Serial.println(readings[buf[2]].cal_temp);
+  Serial.print(F("Temp:"));
+  Serial.print(readings[buf[2]].temperature);
+  Serial.print(",");
+  Serial.print(F("Humidity:"));
+  Serial.print(readings[buf[2]].humidity);
+  Serial.print(",");
+  Serial.print(F("Wind_Speed:"));
+  Serial.print(WindSpeed_MPH);
+  Serial.print(",");
+  Serial.print(F("Water_Level:"));
+  Serial.print(readings[buf[2]].water_level);
+  Serial.print(",");
+  Serial.print("Packet_No:");
+  Serial.println(buf[1]);
 
   uint8_t sender = buf[2];
   buf[2] = 0;
@@ -190,14 +211,14 @@ void setup() {
     Serial.println("LoRa radio init failed");
     while(1);
   }
-  Serial.println("LoRa radio initialized");
+  //Serial.println("LoRa radio initialized");
 
   //Set the freqency
   if(!rf95.setFrequency(RF95_FREQ)){
     Serial.println("Failed to set frequency");
     while(1);
   }
-  Serial.println("Set Frequency success");
+  //Serial.println("Set Frequency success");
 
   //Set transmitting power, minimum 5 and max 23 dBm
   rf95.setTxPower(23, false);
@@ -221,7 +242,7 @@ void loop() {
       switch(buf[0]){
         case '0':
           //Find the first available address and attach it into the message,
-          Serial.println(F("Handling address request"));
+          //Serial.println(F("Handling address request"));
           address_request(buf, len);
           break;
         case '1':
