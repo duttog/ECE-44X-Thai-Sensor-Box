@@ -45,7 +45,6 @@
  #define RF95_FREQ 923.0
 
  #define PACKET_BYTES 18
- #define TEMP_MESSAGE_NUM 20
 
 //Singleton instance of the radio driver
  RH_RF95 rf95(RFM95_CS, RFM95_INT);
@@ -62,6 +61,10 @@ uint8_t messages[10]; //List of previous 10 received message identifiers
 int message_index;
 
 uint8_t sensor_data_packet[PACKET_BYTES];
+
+uint8_t msg_id; //Message identifier
+
+bool acknowledged;
 
 /** This is the data structure holding the sensor data itself **/
 typedef struct {
@@ -171,6 +174,11 @@ sensor_data sensors = {
   uint8_t sender = buf[2];
   uint8_t dest = buf[3];
 
+  if(sender == 0 && dest == address){
+    acknowledged = true;
+    return;
+  }
+
   /*If the sender is on the address list, rebroadcast*/
   bool sender_path = false;
   bool dest_path = false;
@@ -261,8 +269,9 @@ void read_sensors(){
 void create_packet(){
   // name of packet data is "sensor_data_packet"
 
+  msg_id++;
   sensor_data_packet[0] = '1';
-  sensor_data_packet[1] = TEMP_MESSAGE_NUM;
+  sensor_data_packet[1] = msg_id;
   sensor_data_packet[2] = address;
   sensor_data_packet[3] = 0; // sending message data to the host node
 
@@ -289,6 +298,7 @@ void setup() {
 
   num_addr = 0;
   message_index = 0;
+  acknowledged = true;
 
   //Initialize Serial Monitor
   while (!Serial);
@@ -323,7 +333,7 @@ void setup() {
   //Send out address request
   address = 0;
   while(address == 0){
-    uint8_t msg_id = random(0, 255); //Random byte identifier
+    msg_id = random(0, 255); //Random byte identifier
     uint8_t msg[4] = {48, msg_id, 255, 0}; //0 identifier is for address request, 1 is for sensor reading, 2 is for error 
     Serial.print(F("Address request message: "));
     Serial.print((char*)msg);
@@ -367,7 +377,7 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   //Check to see if a message has been received
-  if(rf95.available()){
+  if(rf95.waitAvailableTimeout(5000)){
 
     uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
     uint8_t len = sizeof(buf);
@@ -399,11 +409,13 @@ void loop() {
     }
   }
 
-  delay(5000);
 
-  read_sensors();
-  create_packet();
+  if(acknowledged == true){
+    read_sensors();
+    create_packet();
+  }
 
   rf95.send(sensor_data_packet, PACKET_BYTES);
+  acknowledged = false;
 
 }
