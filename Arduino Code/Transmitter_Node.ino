@@ -190,9 +190,6 @@ sensor_data sensors = {
     }
   }
 
-  sender_path = true;
-  dest_path = true;
-  Serial.println((char*) buf);
   if(sender_path){
     rf95.send(buf, len);
     rf95.waitPacketSent();
@@ -244,7 +241,7 @@ sensor_data sensors = {
  * Parameters: None
  * Return type: None
  ******************************************************************************/
-/*void read_sensors(){
+void read_sensors(){
   // global variable holding sensor data is named "sensors"
 
   // start by initializing the bme280
@@ -260,7 +257,7 @@ sensor_data sensors = {
   sensors.wind_speed = analogRead(A1);
   sensors.cal_temp = analogRead(A0);
   sensors.water_level = analogRead(A2);
-}*/
+}
 
 
 /******************************************************************************
@@ -360,7 +357,7 @@ void setup() {
      */
 
     /* BME280 Temp / Humidity Sensor Init */
-    /*
+    
     if (! bme.begin()) {
         Serial.println(F("Could not find a valid BME280 sensor, check wiring!"));
         while (1);
@@ -414,13 +411,12 @@ void loop() {
   }
 
   if(acknowledged == true){
-    //read_sensors();
-    //create_packet();
+    read_sensors();
+    create_packet();
   }
 
-  //rf95.send(sensor_data_packet, PACKET_BYTES);
-  //rf95.waitPacketSent();
-  //Serial.println(F("Sent a packet"));
+  rf95.send(sensor_data_packet, PACKET_BYTES);
+  rf95.waitPacketSent();
   acknowledged = false;
 
 }
