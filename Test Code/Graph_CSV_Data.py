@@ -5,7 +5,6 @@ temp = []
 humidity  = []
 wind = []
 water = []
-cal_temp = []
 pkt_no = []
 
 f = open("test_data.csv", 'r')
@@ -15,10 +14,9 @@ for x in f:
     tokens = x.split(',')
     temp.append(float(tokens[0]))
     humidity.append(float(tokens[1]))
-    wind.append(int(tokens[2]))
-    water.append(int(tokens[3]))
-    cal_temp.append(int(tokens[4]))
-    pkt_no.append(int(tokens[5]))
+    wind.append(float(tokens[2]))
+    water.append(float(tokens[3]))
+    pkt_no.append(int(tokens[4]))
     
 
 x = np.arange(0, i)
