@@ -163,6 +163,7 @@ void address_request(uint8_t *buf, uint8_t len){
   Serial.println(buf[1]);
 
   uint8_t sender = buf[2];
+  buf[0] = '3'; //ACK message indicator
   buf[2] = 0;
   buf[3] = sender;
   buf[4] = 'A';

@@ -174,10 +174,6 @@ sensor_data sensors = {
   uint8_t sender = buf[2];
   uint8_t dest = buf[3];
 
-  if(sender == 0 && dest == address){
-    acknowledged = true;
-    return;
-  }
 
   /*If the sender is on the address list, rebroadcast*/
   bool sender_path = false;
@@ -228,9 +224,43 @@ sensor_data sensors = {
   if(source != 0 && dest != address){
     rf95.send(buf, len);
     rf95.waitPacketSent();
-    }else{
+  }else{
      
   }
+}
+
+/****************************************************************************************
+ * Function: handle_ack
+ * Description: If this node is the recipient, mark that the sensor data has been 
+ * acknowledged.  Otherwise, rebroadcast as long as the destination is on this node's
+ * address list
+ * Parameters: The received message and its length
+ * Return type: None
+****************************************************************************************/
+void handle_ack(uint8_t *buf, uint8_t len){
+
+  uint8_t sender = buf[2];
+  uint8_t dest = buf[3];
+  /* If this node is the intended recipient, mark that the sensor packet is acknowledged
+     so that it will stop sending repeats*/
+  if(sender == 0 && dest == address){
+    acknowledged = true;
+    return;
+  }
+
+  /*Otherwise, rebroadcast if the destination is on this node's address list*/
+  bool dest_path = false;
+  for(int i = 0; i < 256; i++){
+    if(addr_list[i] == dest){
+      dest_path = true;
+    }
+  }
+
+  if(dest_path){
+    rf95.send(buf, len);
+    rf95.waitPacketSent();
+  }  
+
 }
 
 
@@ -400,6 +430,9 @@ void loop() {
         case '2':
           //Handle error messages
           error_message(buf, len);
+          break;
+        case '3':
+          handle_ack(buf, len);
           break;
         default:
           //something must have gone wrong with the packet, so drop it
