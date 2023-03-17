@@ -66,6 +66,8 @@ uint8_t msg_id; //Message identifier
 
 bool acknowledged;
 
+unsigned long lastmillis; //Storage for the runtime in milliseconds
+
 /** This is the data structure holding the sensor data itself **/
 typedef struct {
   float temp;
@@ -329,6 +331,7 @@ void setup() {
   num_addr = 0;
   message_index = 0;
   acknowledged = true;
+  lastmillis = 0;
 
   //Initialize Serial Monitor
   while (!Serial);
@@ -408,7 +411,7 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   //Check to see if a message has been received
-  if(rf95.waitAvailableTimeout(2000)){
+  if(rf95.waitAvailableTimeout(5000)){
 
     uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
     uint8_t len = sizeof(buf);
@@ -443,13 +446,21 @@ void loop() {
     }
   }
 
+  /*If the message has been acknowledged, create a new sensor data packet*/
   if(acknowledged == true){
     read_sensors();
     create_packet();
+  }else{
+    rf95.send(sensor_data_packet, PACKET_BYTES);
+    rf95.waitPacketSend();
   }
 
-  rf95.send(sensor_data_packet, PACKET_BYTES);
-  rf95.waitPacketSent();
-  acknowledged = false;
+  /*Send sensor data every 5 minutes, for now*/
+  if(millis() - lastmillis >= 300000){
+    lastmillis = millis();
+    rf95.send(sensor_data_packet, PACKET_BYTES);
+    rf95.waitPacketSent();
+    acknowledged = false;
+  }
 
 }
