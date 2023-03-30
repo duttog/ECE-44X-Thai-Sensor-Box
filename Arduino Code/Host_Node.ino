@@ -50,11 +50,16 @@ typedef struct{
   uint16_t water_level;
   uint16_t wind_speed;
   uint16_t cal_temp;
+  float wind_speed_kph;
 }sensor_data;
 
 sensor_data readings[16];
 
 const float zeroWindAdjustment =  0.05; // negative numbers yield smaller wind speeds and vice versa.
+
+unsigned long lastmillis;
+
+unsigned long last_received[16]; //Last received milliseconds for each node
 
 
 /*****************************************************************************
@@ -126,6 +131,18 @@ void address_request(uint8_t *buf, uint8_t len){
   //Serial.println(F("Received test sensor packet"));
   //readings[buf[2]].identifier = buf[2];
 
+  /*Check if the sender is in the address list, and if it isn't, add it to the list*/
+  uint8_t sender = buf[2];
+  for(int i = 0; i < num_addresses; i++){
+    if(addresses[i] == sender){
+      break;
+    }else if(i == num_addresses - 1){
+      addresses[num_addresses] = sender;
+      num_addresses++;
+      break;
+    }
+  }   
+
   memcpy(&readings[buf[2]], buf + 4, 14);
 
   int TMP_Therm_ADunits;
@@ -135,7 +152,7 @@ void address_request(uint8_t *buf, uint8_t len){
   float zeroWind_ADunits;
   float zeroWind_volts;
   float WindSpeed_MPH;
-
+  
   TMP_Therm_ADunits = readings[buf[2]].wind_speed;
   RV_Wind_ADunits = readings[buf[2]].cal_temp;
   RV_Wind_Volts = (RV_Wind_ADunits * 0.0048828125);
@@ -146,7 +163,8 @@ void address_request(uint8_t *buf, uint8_t len){
 
   zeroWind_volts = (zeroWind_ADunits * 0.0048828125) - zeroWindAdjustment;
   WindSpeed_MPH =  pow(((RV_Wind_Volts - zeroWind_volts) /.2300) , 2.7265);
-  
+  readings[buf[2]].wind_speed_kph = WindSpeed_MPH * 1.609; 
+   
   Serial.print(F("Temp:"));
   Serial.print(readings[buf[2]].temperature);
   Serial.print(",");
@@ -154,7 +172,7 @@ void address_request(uint8_t *buf, uint8_t len){
   Serial.print(readings[buf[2]].humidity);
   Serial.print(",");
   Serial.print(F("Wind_Speed:"));
-  Serial.print(WindSpeed_MPH);
+  Serial.print(readings[buf[2]].wind_speed_kph);
   Serial.print(",");
   Serial.print(F("Water_Level:"));
   Serial.print(readings[buf[2]].water_level);
@@ -187,6 +205,8 @@ void setup() {
   message_index = 0;
 
   num_addresses = 0;
+
+  lastmillis = 0;
 
   for(int i = 0; i < 16; i++){
     //readings[i].identifier = 0;
@@ -264,6 +284,103 @@ void loop() {
 
   /* On certain intervals, send data to the website, and then send out warning messages
    *  to any addresses that did not send any data in the past 30 minutes*/
+
+  /*If 15 minutes have elapsed, send the data by printing to the serial port*/
+  if(millis() - lastmillis >= 900000){
+
+    lastmillis = millis();
+    for(int i = 0; i < num_addresses; i++){
+
+      /*Iterate through the addresses and send the sensor data for each one*/
+     
+      Serial.print(F("Node:"));
+      Serial.print(addresses[i]);
+      Serial.print(F(",")); 
+      Serial.print(F("Temp:"));
+      Serial.print(readings[addresses[i]].temperature);
+      Serial.print(",");
+      Serial.print(F("Humidity:"));
+      Serial.print(readings[addresses[i]].humidity);
+      Serial.print(",");
+      Serial.print(F("Wind_Speed:"));
+      Serial.print(readings[addresses[i]].wind_speed_kph);
+      Serial.print(",");
+      Serial.print(F("Water_Level:"));
+      Serial.print(readings[addresses[i]].water_level);
+
+    }   
+    
+    /*TODO: Remove any nodes from the address list that did not send data within the 15
+      minute time frame*/
+    for(int i = 0; i < num_addresses; i++){
+
+      /*If one of the addresses did not transmit, move it to the end of the array and then
+        decrement the address number index*/ 
+      if(readings[addresses[i]].temperature == 0 && readings[addresses[i]].humidity == 0){
+        for(j = i; j < num_addresses-1; j++){
+          uint8_t temp = addresses[j+1];
+          addresses[j+1] = addresses[j];
+          addresses[j] = temp;
+        }
+        num_addresses--;
+      }
+    } 
+
+    /*Set all values in the readings array to 0*/
+    for(int i = 0; i < num_addresses; i++){
+
+      readings[addresses[i]].temperature = 0;
+      readings[addresses[i]].humidity = 0;
+      readings[addresses[i]].wind_speed_kph = 0;
+      readings[addresses[i]].water_level = 0;
+
+    }
+
+  /*At 14 minutes, send out a warning to any nodes that have not transmitted data yet*/
+  /*Message code: 2*/
+  }else if(millis() - lastmillis >= 840000){
+
+    for(int i = 0; i < num_addresses; i++){
+      /*If the sensor readings are all 0, then the node has not sent any data*/
+      if(readings[addresses[i]].temperature == 0 && readings[addresses[i]].humidity == 0){
+        /*Create a packet with code '2' with the destination as the target node*/
+        uint8_t message[4] = {50, 0, 0, adresses[i]};
+        rf95.send(message, 4);
+        rf95.waitPacketSent();
+
+        /* Wait for a response for 7 seconds*/  
+        if(rf95.waitAvailableTimeout(7000)){
+           if(rf95.recv(buf, &len)){
+             if(buf[0] == '2' && buf[2] == addresses[i]){
+               
+               memcpy(&readings[buf[2]], buf + 4, 14);
+
+               int TMP_Therm_ADunits;
+               float RV_Wind_ADunits; float RV_Wind_Volts;
+               int TempCtimes100;
+               float zeroWind_ADunits;
+               float zeroWind_volts;
+               float WindSpeed_MPH;
+  
+               TMP_Therm_ADunits = readings[buf[2]].wind_speed;
+               RV_Wind_ADunits = readings[buf[2]].cal_temp;
+               RV_Wind_Volts = (RV_Wind_ADunits * 0.0048828125);
+
+               TempCtimes100 = (0.005 *((float)TMP_Therm_ADunits * (float)TMP_Therm_ADunits)) - (16.862 * (float)TMP_Therm_ADunits) + 9075.4;  
+
+               zeroWind_ADunits = -0.0006*((float)TMP_Therm_ADunits * (float)TMP_Therm_ADunits) + 1.0727 * (float)TMP_Therm_ADunits + 47.172;  //  13.0C  553  482.39
+
+               zeroWind_volts = (zeroWind_ADunits * 0.0048828125) - zeroWindAdjustment;
+               WindSpeed_MPH =  pow(((RV_Wind_Volts - zeroWind_volts) /.2300) , 2.7265);
+
+               readings[buf[2]].wind_speed_kph = WindSpeed_MPH * 1.609; 
+             }  
+           }
+        }
+        
+      }
+    }
+  }
 
    delay(1);
    

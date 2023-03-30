@@ -226,8 +226,15 @@ sensor_data sensors = {
   if(source != 0 && dest != address){
     rf95.send(buf, len);
     rf95.waitPacketSent();
-  }else{
-     
+
+  /*If this node is the intended recipient, create a sensor data packet and send it as a
+    reply*/
+  }else if(source == 0 && dest == address){
+    read_sensors();
+    create_packet();
+    sensor_data_packet[0] = '2';
+    rf95.send(sensor_data_packet, PACKET_BYTES);
+    rf95.waitPacketSent(); 
   }
 }
 
