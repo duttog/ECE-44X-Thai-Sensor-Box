@@ -180,7 +180,7 @@ void address_request(uint8_t *buf, uint8_t len){
   Serial.print("Packet_No:");
   Serial.println(buf[1]);
 
-  uint8_t sender = buf[2];
+  sender = buf[2];
   buf[0] = '3'; //ACK message indicator
   buf[2] = 0;
   buf[3] = sender;
@@ -317,7 +317,7 @@ void loop() {
       /*If one of the addresses did not transmit, move it to the end of the array and then
         decrement the address number index*/ 
       if(readings[addresses[i]].temperature == 0 && readings[addresses[i]].humidity == 0){
-        for(j = i; j < num_addresses-1; j++){
+        for(int j = i; j < num_addresses-1; j++){
           uint8_t temp = addresses[j+1];
           addresses[j+1] = addresses[j];
           addresses[j] = temp;
@@ -343,8 +343,10 @@ void loop() {
     for(int i = 0; i < num_addresses; i++){
       /*If the sensor readings are all 0, then the node has not sent any data*/
       if(readings[addresses[i]].temperature == 0 && readings[addresses[i]].humidity == 0){
+        uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
+        uint8_t len = sizeof(buf);
         /*Create a packet with code '2' with the destination as the target node*/
-        uint8_t message[4] = {50, 0, 0, adresses[i]};
+        uint8_t message[4] = {50, 0, 0, addresses[i]};
         rf95.send(message, 4);
         rf95.waitPacketSent();
 
