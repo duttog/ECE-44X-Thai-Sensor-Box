@@ -459,7 +459,7 @@ void loop() {
     create_packet();
   }else{
     rf95.send(sensor_data_packet, PACKET_BYTES);
-    rf95.waitPacketSend();
+    rf95.waitPacketSent();
   }
 
   /*Send sensor data every 5 minutes, for now*/
