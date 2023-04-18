@@ -11,7 +11,7 @@ namespace test_project
     class TimeStamp
     {
         private DateTime timeValue;
-        private Lazy<List<SensorReadings>> sensorValues;
+        private List<SensorReadings> sensorValues;
         private int numSensors;
 
 
@@ -39,10 +39,10 @@ namespace test_project
             timeValue = new DateTime(year, month, day, hour, minute, 0); // accuracy of seconds does not matter
 
 
-            /* Calculate the number of sensors */
+            /* Calculate the number of sensors  */
             numSensors = lines.Length - 1;
 
-            
+            // Might need to check this loop to make sure it operates correctly in edge cases
             for (int i = 1; i < lines.Length; i++)
             {
                 if (sensorValues == null)

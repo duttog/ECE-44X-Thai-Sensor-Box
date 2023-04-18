@@ -12,6 +12,8 @@ namespace test_project
 {
     public partial class initForm : Form
     {
+        public event EventHandler BeginBackgroundCapture;
+        public event EventHandler DisplayData;
 
         private Action result;
         public Action getAction()
@@ -30,16 +32,17 @@ namespace test_project
 
         }
 
+        // the only thing that should happen when either button is clicked is
+        // an event should be invoked to be handled by the program manager
         private void displayEnvDataButton_Click(object sender, EventArgs e)
         {
-            result = Action.BeginFileExplorer;
-            this.DialogResult = DialogResult.OK;
+            DisplayData?.Invoke(this, EventArgs.Empty);
         }
 
         private void beginDataCaptureButton_Click(object sender, EventArgs e)
         {
-            result = Action.BeginBackgroundProcess;
-            this.DialogResult = DialogResult.OK;
+           
+            BeginBackgroundCapture?.Invoke(this, EventArgs.Empty);
         }
     }
 }

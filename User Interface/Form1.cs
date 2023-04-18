@@ -6,6 +6,9 @@ namespace test_project
 {
     public partial class Form1 : Form
     {
+        public event EventHandler<string> FileLoad;
+        public event EventHandler CancelDisplay;
+
         private string FilePath = Directory.GetCurrentDirectory();
         private bool isFile = false;
         private string currentNameSelected = "";
@@ -121,8 +124,7 @@ namespace test_project
 
         private void cancelFileButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            CancelDisplay?.Invoke(this, EventArgs.Empty);
         }
 
         private void selectFileButton_Click(object sender, EventArgs e)
@@ -133,8 +135,7 @@ namespace test_project
             if (fileInfo.Extension == ".edf")
             {
                 final_file = selectFile;
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                FileLoad?.Invoke(this, final_file);
             }
         }
 

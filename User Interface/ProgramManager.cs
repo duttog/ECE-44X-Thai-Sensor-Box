@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace test_project
 {
@@ -19,15 +21,15 @@ namespace test_project
     class ProgramManager : ApplicationContext
     {
         private string dataFile = "";
+        private initForm init;
+        private Form1 fileExplorer;
 
-
+        // this is basically a list of timestamps with data
+        private EnvironmentalDataFile? edf = null;
 
         private void onFormClosed(object? sender, FormClosedEventArgs e)
         {
-            if (Application.OpenForms.Count == 0)
-            {
-                Application.Exit();
-            }
+            Application.Exit();
         }
 
         public T CreateForm<T>() where T : Form, new()
@@ -51,70 +53,85 @@ namespace test_project
              * continue process for both program flow cases.
              */
 
-            // create the first form
-            var initForm = CreateForm<initForm>();
-            var fileExplorer = CreateForm<Form1>();
+            // create all forms for the application
+            init = CreateForm<initForm>();
+            fileExplorer = CreateForm<Form1>();
+
+
+            // attach the necessary events for each form
+            // init form needs one event for either button
+            init.BeginBackgroundCapture += BackgroundDataReading;
+            init.DisplayData += FileExplorerTransition;
+
+            // fileExplorer forms needs one for both the select file and 
+            // cancel buttons
+            fileExplorer.FileLoad += LoadFile;
+            fileExplorer.CancelDisplay += ReturnToHomeScreen;
+
+
+            // the only form showing at the beginning should be the initForm
+            init.Show();
             fileExplorer.Hide();
-            var result = initForm.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                Action nextForm = initForm.getAction();
-                
-
-                if (nextForm == Action.BeginFileExplorer)
-                {
-                    //fileExplorer.Show();
-                    
-                    result = fileExplorer.ShowDialog();
-
-                    if (result == DialogResult.OK)
-                    {
-                        dataFile = fileExplorer.getSelectedFile();
-                    }
-
-                    else if (result == DialogResult.Cancel)
-                    {
-                        return;
-                    }
-
-                    ExitThread();
-                }
 
 
-                else if (nextForm == Action.BeginBackgroundProcess)
-                {
-                    BackgroundDataReading();
-                }
-            }
 
+            // the rest of the program control should be handled through user events...
+            // this class should basically be handling events from the pages themselves as they throw them
         }
 
-        /*
-         * The user chose to display data. Begin by opening the file explorer and then
-         * if a valid file is chosen, open up the graphing form to display the data in 
-         * the file chosen
-         */
-        private void DataIllustrationProcess()
+
+        /// <summary>
+        /// Event Handlers for program management
+        /// </summary>
+
+      
+        /// <summary>
+        /// Invoker: initForm
+        /// If the user chooses to display data, the file explorer should be shown
+        /// </summary>
+        private void FileExplorerTransition(object? sender, EventArgs e)
         {
-            var fileExplorer = CreateForm<Form1>();
-            
-
-            // var dataDisplay = CreateForm<displayData>(dataFile);
-            // dataDisplay.Show();
-            fileExplorer.Close();
-            return;
+            init.Hide();
+            fileExplorer.Show();
         }
 
-        /*
-         * Yet to implement 
-         */
-        private void BackgroundDataReading()
+        /// <summary>
+        /// Invoker: initForm
+        /// Begins the background data reading process.Should end up at the graph
+        /// form (empty graphs if necessary).
+        /// </summary>
+        private void BackgroundDataReading(object? sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Invoker: Form1 (fileExplorer)
+        /// Exchanges the file explorer page for the data display page. Parses the data
+        /// from the file selected.
+        /// </summary>
+        private void LoadFile(object? sender, string filename)
+        {
+            fileExplorer.Hide();
+            // show an empty data form while the program parses
 
+            edf = new EnvironmentalDataFile(filename);
+
+            // I need to pass this data file into the graphing form and then update the drawings once
+            // they are written
+        }
+
+        /// <summary>
+        /// Invoker: Form1
+        /// If the user chooses to cancel the file selection, returns them to the homepage 
+        /// of the screen.
+        /// </summary>
+        private void ReturnToHomeScreen(object? sender, EventArgs e)
+        {
+            fileExplorer.Hide();
+            init.Refresh();
+            init.Show();
+        }
 
 
     }
