@@ -11,7 +11,7 @@ namespace test_project
     class TimeStamp
     {
         private DateTime timeValue;
-        private List<SensorReadings> sensorValues;
+        private List<SensorReadings>? sensorValues;
         private int numSensors;
 
 
@@ -57,6 +57,18 @@ namespace test_project
                 }
             }
         }
+
+        public DateTime getDate()
+        {
+            return this.timeValue;
+        }
+
+        public List<SensorReadings>? getSensorData()
+        {
+            return this.sensorValues;
+        }
+
+
 
     }
 }

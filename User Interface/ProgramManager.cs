@@ -25,7 +25,16 @@ namespace test_project
         private Form1 fileExplorer;
 
         // this is basically a list of timestamps with data
-        private EnvironmentalDataFile? edf = null;
+        // making the data and getter static allows for one copy
+        // (the current copy) to be accessible from anywhere in the program
+        // but innaccessable to change elsewhere
+        private static EnvironmentalDataFile? edf = null;
+        public static EnvironmentalDataFile? getEDF()
+        {
+            return edf;
+        }
+
+
 
         private void onFormClosed(object? sender, FormClosedEventArgs e)
         {

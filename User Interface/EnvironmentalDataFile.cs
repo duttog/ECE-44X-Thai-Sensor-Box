@@ -8,7 +8,12 @@ namespace test_project
 {
     class EnvironmentalDataFile
     {
-        public List<TimeStamp> dataPoints;
+        private List<TimeStamp> dataPoints;
+        public List<TimeStamp> getData()
+        {
+            return dataPoints;
+        }
+
 
         public EnvironmentalDataFile(string FilePath)
         {
