@@ -33,7 +33,7 @@
           }
         }
       },
-      "ScottPlot/4.1.61": {
+      "ScottPlot/4.1.63": {
         "type": "package",
         "dependencies": {
           "System.Drawing.Common": "4.7.2",
@@ -50,10 +50,10 @@
           }
         }
       },
-      "ScottPlot.WinForms/4.1.61": {
+      "ScottPlot.WinForms/4.1.63": {
         "type": "package",
         "dependencies": {
-          "ScottPlot": "4.1.61"
+          "ScottPlot": "4.1.63"
         },
         "compile": {
           "lib/net6.0-windows7.0/ScottPlot.WinForms.dll": {}
@@ -63,21 +63,6 @@
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WindowsForms"
-        ]
-      },
-      "ScottPlot.WPF/4.1.61": {
-        "type": "package",
-        "dependencies": {
-          "ScottPlot": "4.1.61"
-        },
-        "compile": {
-          "lib/net6.0-windows7.0/ScottPlot.WPF.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0-windows7.0/ScottPlot.WPF.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App.WPF"
         ]
       },
       "System.Drawing.Common/4.7.2": {
@@ -164,10 +149,10 @@
         "version.txt"
       ]
     },
-    "ScottPlot/4.1.61": {
-      "sha512": "MdAL3fLlFMTlCGwc19w+IcPNQL77RQExZRsx5cfUdtjvJKk6X81PdQ/eKdYVIhYLhTOXJ7X60GeLU63iZg4hFA==",
+    "ScottPlot/4.1.63": {
+      "sha512": "ph9TskhXC31lySsZLDRzo5g1ujG1GnMDM/xPFeU6ntP2c58WEvf0nP7Pe5hAT7E5t7kwM0SAn0rsAqK6++PP5w==",
       "type": "package",
-      "path": "scottplot/4.1.61",
+      "path": "scottplot/4.1.63",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -180,14 +165,14 @@
         "lib/net6.0/ScottPlot.xml",
         "lib/netstandard2.0/ScottPlot.dll",
         "lib/netstandard2.0/ScottPlot.xml",
-        "scottplot.4.1.61.nupkg.sha512",
+        "scottplot.4.1.63.nupkg.sha512",
         "scottplot.nuspec"
       ]
     },
-    "ScottPlot.WinForms/4.1.61": {
-      "sha512": "d/VSKSUNAr+7zg0Kg4IaN7C3GE71GRmmjw3rgsJLuFrh44KCGlTF6rlabHE/ZOFaOq5eWTjaQNCDlxjK8wGEMg==",
+    "ScottPlot.WinForms/4.1.63": {
+      "sha512": "Ldi7Rs9UpchKIFG+hLQ4WWUaSMEHxFZWIZt+fbJ0Tgmy9YMWIqBwbnqZt+2Mq3a4ZawZof0T3nMj6WMYwCK6ew==",
       "type": "package",
-      "path": "scottplot.winforms/4.1.61",
+      "path": "scottplot.winforms/4.1.63",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -200,30 +185,8 @@
         "lib/net5.0-windows7.0/ScottPlot.WinForms.dll",
         "lib/net6.0-windows7.0/ScottPlot.WinForms.dll",
         "lib/netcoreapp3.1/ScottPlot.WinForms.dll",
-        "scottplot.winforms.4.1.61.nupkg.sha512",
+        "scottplot.winforms.4.1.63.nupkg.sha512",
         "scottplot.winforms.nuspec"
-      ]
-    },
-    "ScottPlot.WPF/4.1.61": {
-      "sha512": "l7k6QquD2heiNZsoJA+kKOV2o3QyvGvChWfK0swK9FRU7KcMLdL4vh7npEcbz1NgW9UnMQJRAjs/+sn4rSV/Xg==",
-      "type": "package",
-      "path": "scottplot.wpf/4.1.61",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "icon.ico",
-        "icon.png",
-        "lib/net461/ScottPlot.WPF.dll",
-        "lib/net472/ScottPlot.WPF.dll",
-        "lib/net48/ScottPlot.WPF.dll",
-        "lib/net5.0-windows7.0/ScottPlot.WPF.dll",
-        "lib/net6.0-windows7.0/ScottPlot.WPF.dll",
-        "lib/netcoreapp3.1/ScottPlot.WPF.dll",
-        "scottplot.wpf.4.1.61.nupkg.sha512",
-        "scottplot.wpf.nuspec",
-        "tools/VisualStudioToolsManifest.xml"
       ]
     },
     "System.Drawing.Common/4.7.2": {
@@ -316,9 +279,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "ScottPlot >= 4.1.61",
-      "ScottPlot.WPF >= 4.1.61",
-      "ScottPlot.WinForms >= 4.1.61"
+      "ScottPlot.WinForms >= 4.1.63"
     ]
   },
   "packageFolders": {
@@ -327,11 +288,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Blake\\Source\\Repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
+      "projectUniqueName": "C:\\Users\\Blake\\source\\repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
       "projectName": "test_project",
-      "projectPath": "C:\\Users\\Blake\\Source\\Repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
+      "projectPath": "C:\\Users\\Blake\\source\\repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
       "packagesPath": "C:\\Users\\Blake\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Blake\\Source\\Repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\obj\\",
+      "outputPath": "C:\\Users\\Blake\\source\\repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Blake\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -360,17 +321,9 @@
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
         "dependencies": {
-          "ScottPlot": {
-            "target": "Package",
-            "version": "[4.1.61, )"
-          },
-          "ScottPlot.WPF": {
-            "target": "Package",
-            "version": "[4.1.61, )"
-          },
           "ScottPlot.WinForms": {
             "target": "Package",
-            "version": "[4.1.61, )"
+            "version": "[4.1.63, )"
           }
         },
         "imports": [

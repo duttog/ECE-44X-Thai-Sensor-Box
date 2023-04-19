@@ -1,14 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "qXO8hE+sz0g3RD3towgaJcEor2SwgiDabfYrnxcL+1YTnOQc2+i/nMVB4TvW13yyIYd/wf76A6QkMvBCUIzwFA==",
+  "dgSpecHash": "OnklIDApcGfcl/gLrQqUOQXf5IK+QOLVne13SuflOxJaXIcIEX6OI7nWGuZS0z0LpB8W73aiTZZU2JPy6gnp5g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Blake\\source\\repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Blake\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.4\\microsoft.netcore.platforms.3.1.4.nupkg.sha512",
     "C:\\Users\\Blake\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\Blake\\.nuget\\packages\\scottplot\\4.1.61\\scottplot.4.1.61.nupkg.sha512",
-    "C:\\Users\\Blake\\.nuget\\packages\\scottplot.winforms\\4.1.61\\scottplot.winforms.4.1.61.nupkg.sha512",
-    "C:\\Users\\Blake\\.nuget\\packages\\scottplot.wpf\\4.1.61\\scottplot.wpf.4.1.61.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\scottplot\\4.1.63\\scottplot.4.1.63.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\scottplot.winforms\\4.1.63\\scottplot.winforms.4.1.63.nupkg.sha512",
     "C:\\Users\\Blake\\.nuget\\packages\\system.drawing.common\\4.7.2\\system.drawing.common.4.7.2.nupkg.sha512",
     "C:\\Users\\Blake\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
   ],

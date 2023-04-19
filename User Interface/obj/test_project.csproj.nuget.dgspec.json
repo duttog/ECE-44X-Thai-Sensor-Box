@@ -40,17 +40,9 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "dependencies": {
-            "ScottPlot": {
-              "target": "Package",
-              "version": "[4.1.61, )"
-            },
-            "ScottPlot.WPF": {
-              "target": "Package",
-              "version": "[4.1.61, )"
-            },
             "ScottPlot.WinForms": {
               "target": "Package",
-              "version": "[4.1.61, )"
+              "version": "[4.1.63, )"
             }
           },
           "imports": [

@@ -16,5 +16,27 @@ namespace test_project
         {
             InitializeComponent();
         }
+
+
+
+        private void tempGraph_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void humGraph_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wndspdGraph_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wtrlvlGraph_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
