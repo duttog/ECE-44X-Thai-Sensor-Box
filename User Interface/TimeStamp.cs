@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
-using System.Windows.Shapes;
 
 namespace test_project
 {
@@ -24,8 +23,8 @@ namespace test_project
             int semiColon = lines[0].IndexOf(";");
             int colon = lines[0].IndexOf(":");
             
-            hour = Int32.Parse(lines[0].Substring(comma, colon));
-            minute = Int32.Parse(lines[0].Substring(colon, semiColon));
+            hour = Int32.Parse(lines[0].Substring(comma + 1, colon - (comma + 1)));
+            minute = Int32.Parse(lines[0].Substring(colon + 1, semiColon - (colon + 1)));
 
             string date_string = lines[0].Substring(0, comma);
 

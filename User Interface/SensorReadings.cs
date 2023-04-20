@@ -9,12 +9,12 @@ namespace test_project
     class SensorReadings
     {
         private int sensorID;
-        private float humidity { get; set; }
-        private float temperature { get; set; }
-        private float water_level { get; set; }
-        private float wind_speed { get; set; }
+        private double humidity;
+        private double temperature;
+        private double water_level;
+        private double wind_speed;
         
-        public SensorReadings(float hum, float temp, float wat_lev, float win_spd)
+        public SensorReadings(double hum, double temp, double wat_lev, double win_spd)
         {
             this.humidity = hum;
             this.temperature = temp;
@@ -28,11 +28,40 @@ namespace test_project
             string[] tokens = sensorData.Split(delimChars);
 
             sensorID = int.Parse(tokens[0]);
-            humidity = float.Parse(tokens[1]);
-            temperature = float.Parse(tokens[2]);
-            water_level = float.Parse(tokens[3]);
-            wind_speed = float.Parse(tokens[4]);
+            humidity = double.Parse(tokens[1]);
+            temperature = double.Parse(tokens[2]);
+            water_level = double.Parse(tokens[3]);
+            wind_speed = double.Parse(tokens[4]);
 
         }
+
+        public int getID()
+        {
+            return this.sensorID;
+        }
+
+        public double getHum()
+        {
+            return this.humidity;
+        }
+
+        public double getTemp()
+        {
+            return this.temperature;
+        }
+
+        public double getLevel()
+        {
+            return this.water_level;
+        }
+
+        public double getSpeed()
+        {
+            return this.wind_speed;
+        }
+
+
+
+
     }
 }

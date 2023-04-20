@@ -82,6 +82,7 @@
             Margin = new Padding(2);
             Name = "dataForm";
             Text = "Form2";
+            Load += dataForm_Load;
             ResumeLayout(false);
         }
 

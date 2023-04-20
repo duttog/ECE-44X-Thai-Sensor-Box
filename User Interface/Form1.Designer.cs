@@ -47,10 +47,10 @@
             // 
             // backButton
             // 
-            backButton.Location = new Point(5, 5);
-            backButton.Margin = new Padding(1);
+            backButton.Location = new Point(7, 8);
+            backButton.Margin = new Padding(1, 2, 1, 2);
             backButton.Name = "backButton";
-            backButton.Size = new Size(100, 25);
+            backButton.Size = new Size(143, 42);
             backButton.TabIndex = 0;
             backButton.Text = "Back";
             backButton.UseVisualStyleBackColor = true;
@@ -58,19 +58,19 @@
             // 
             // listView1
             // 
-            listView1.Location = new Point(156, 67);
-            listView1.Margin = new Padding(1);
+            listView1.Location = new Point(223, 112);
+            listView1.Margin = new Padding(1, 2, 1, 2);
             listView1.Name = "listView1";
-            listView1.Size = new Size(5, 5);
+            listView1.Size = new Size(5, 6);
             listView1.TabIndex = 1;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
             // goButton
             // 
-            goButton.Location = new Point(770, 5);
-            goButton.Margin = new Padding(1);
+            goButton.Location = new Point(1100, 8);
+            goButton.Margin = new Padding(1, 2, 1, 2);
             goButton.Name = "goButton";
-            goButton.Size = new Size(100, 25);
+            goButton.Size = new Size(143, 42);
             goButton.TabIndex = 2;
             goButton.Text = "Go";
             goButton.UseVisualStyleBackColor = true;
@@ -79,10 +79,10 @@
             // listView
             // 
             listView.LargeImageList = iconList;
-            listView.Location = new Point(6, 40);
-            listView.Margin = new Padding(1);
+            listView.Location = new Point(9, 67);
+            listView.Margin = new Padding(1, 2, 1, 2);
             listView.Name = "listView";
-            listView.Size = new Size(865, 310);
+            listView.Size = new Size(1234, 514);
             listView.SmallImageList = iconList;
             listView.TabIndex = 3;
             listView.UseCompatibleStateImageBehavior = false;
@@ -100,67 +100,68 @@
             // 
             // filePathTextBox
             // 
-            filePathTextBox.Location = new Point(115, 5);
-            filePathTextBox.Margin = new Padding(1);
+            filePathTextBox.Location = new Point(164, 8);
+            filePathTextBox.Margin = new Padding(1, 2, 1, 2);
             filePathTextBox.Name = "filePathTextBox";
-            filePathTextBox.Size = new Size(640, 23);
+            filePathTextBox.Size = new Size(913, 31);
             filePathTextBox.TabIndex = 4;
             // 
             // fileNameTB
             // 
             fileNameTB.AutoSize = true;
-            fileNameTB.Location = new Point(13, 363);
+            fileNameTB.Location = new Point(19, 605);
             fileNameTB.Margin = new Padding(1, 0, 1, 0);
             fileNameTB.Name = "fileNameTB";
-            fileNameTB.Size = new Size(57, 15);
+            fileNameTB.Size = new Size(85, 25);
             fileNameTB.TabIndex = 5;
             fileNameTB.Text = "FileName";
             // 
             // fileNameLabel
             // 
             fileNameLabel.AutoSize = true;
-            fileNameLabel.Location = new Point(73, 363);
+            fileNameLabel.Location = new Point(104, 605);
             fileNameLabel.Margin = new Padding(1, 0, 1, 0);
             fileNameLabel.Name = "fileNameLabel";
-            fileNameLabel.Size = new Size(36, 15);
+            fileNameLabel.Size = new Size(55, 25);
             fileNameLabel.TabIndex = 6;
             fileNameLabel.Text = "blank";
             // 
             // fileTypeTB
             // 
             fileTypeTB.AutoSize = true;
-            fileTypeTB.Location = new Point(13, 393);
+            fileTypeTB.Location = new Point(19, 655);
             fileTypeTB.Margin = new Padding(1, 0, 1, 0);
             fileTypeTB.Name = "fileTypeTB";
-            fileTypeTB.Size = new Size(49, 15);
+            fileTypeTB.Size = new Size(75, 25);
             fileTypeTB.TabIndex = 7;
             fileTypeTB.Text = "FileType";
             // 
             // fileTypeLabel
             // 
             fileTypeLabel.AutoSize = true;
-            fileTypeLabel.Location = new Point(73, 393);
+            fileTypeLabel.Location = new Point(104, 655);
             fileTypeLabel.Margin = new Padding(1, 0, 1, 0);
             fileTypeLabel.Name = "fileTypeLabel";
-            fileTypeLabel.Size = new Size(36, 15);
+            fileTypeLabel.Size = new Size(55, 25);
             fileTypeLabel.TabIndex = 8;
             fileTypeLabel.Text = "blank";
             // 
             // errorBox
             // 
-            errorBox.Location = new Point(230, 363);
-            errorBox.Margin = new Padding(1);
+            errorBox.Location = new Point(329, 605);
+            errorBox.Margin = new Padding(1, 2, 1, 2);
             errorBox.Multiline = true;
             errorBox.Name = "errorBox";
-            errorBox.Size = new Size(475, 45);
+            errorBox.Size = new Size(677, 72);
             errorBox.TabIndex = 9;
             errorBox.Text = "General Message Text Box";
             // 
             // selectFileButton
             // 
-            selectFileButton.Location = new Point(720, 363);
+            selectFileButton.Location = new Point(1029, 605);
+            selectFileButton.Margin = new Padding(4, 5, 4, 5);
             selectFileButton.Name = "selectFileButton";
-            selectFileButton.Size = new Size(145, 23);
+            selectFileButton.Size = new Size(207, 38);
             selectFileButton.TabIndex = 10;
             selectFileButton.Text = "Select File";
             selectFileButton.UseVisualStyleBackColor = true;
@@ -168,9 +169,10 @@
             // 
             // cancelFileButton
             // 
-            cancelFileButton.Location = new Point(720, 385);
+            cancelFileButton.Location = new Point(1029, 642);
+            cancelFileButton.Margin = new Padding(4, 5, 4, 5);
             cancelFileButton.Name = "cancelFileButton";
-            cancelFileButton.Size = new Size(145, 23);
+            cancelFileButton.Size = new Size(207, 38);
             cancelFileButton.TabIndex = 11;
             cancelFileButton.Text = "Cancel";
             cancelFileButton.UseVisualStyleBackColor = true;
@@ -178,9 +180,9 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(877, 421);
+            ClientSize = new Size(1253, 702);
             Controls.Add(cancelFileButton);
             Controls.Add(selectFileButton);
             Controls.Add(errorBox);
@@ -193,7 +195,7 @@
             Controls.Add(goButton);
             Controls.Add(listView1);
             Controls.Add(backButton);
-            Margin = new Padding(1);
+            Margin = new Padding(1, 2, 1, 2);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;

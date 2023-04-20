@@ -51,17 +51,17 @@ namespace test_project
                 {
                     newLine = file.ReadLine();
 
-                    if (newLine != null)
+                    if (!newLine.Equals(null) && !newLine.Equals(""))
                     {
                         newTimeStamp.Add(newLine);
                     }
-                } while (newLine != "\n" || newLine != null);
+                } while (!newLine.Equals(null) && !newLine.Equals(""));
 
                 tempHolder = newTimeStamp.ToArray();
                 envDataFile.Add(tempHolder);
                 newTimeStamp.Clear();
 
-            } while (newLine != null);
+            } while (file.Peek() >= 0);
 
             return envDataFile.ToArray();
         }

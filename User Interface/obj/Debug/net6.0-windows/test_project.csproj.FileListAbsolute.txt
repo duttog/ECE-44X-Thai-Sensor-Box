@@ -13,7 +13,6 @@ C:\Users\Blake\Source\Repos\ECE-44X-Thai-Sensor-Box\User Interface\bin\Debug\net
 C:\Users\Blake\Source\Repos\ECE-44X-Thai-Sensor-Box\User Interface\bin\Debug\net6.0-windows\test_project.pdb
 C:\Users\Blake\Source\Repos\ECE-44X-Thai-Sensor-Box\User Interface\bin\Debug\net6.0-windows\ScottPlot.dll
 C:\Users\Blake\Source\Repos\ECE-44X-Thai-Sensor-Box\User Interface\bin\Debug\net6.0-windows\ScottPlot.WinForms.dll
-C:\Users\Blake\Source\Repos\ECE-44X-Thai-Sensor-Box\User Interface\bin\Debug\net6.0-windows\ScottPlot.WPF.dll
 C:\Users\Blake\Source\Repos\ECE-44X-Thai-Sensor-Box\User Interface\obj\Debug\net6.0-windows\test_project.csproj.CopyComplete
 C:\Users\Blake\Source\Repos\ECE-44X-Thai-Sensor-Box\User Interface\obj\Debug\net6.0-windows\test_project.dll
 C:\Users\Blake\Source\Repos\ECE-44X-Thai-Sensor-Box\User Interface\obj\Debug\net6.0-windows\refint\test_project.dll

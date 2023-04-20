@@ -8,9 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "test_project/1.0.0": {
         "dependencies": {
-          "ScottPlot": "4.1.61",
-          "ScottPlot.WPF": "4.1.61",
-          "ScottPlot.WinForms": "4.1.61"
+          "ScottPlot.WinForms": "4.1.63"
         },
         "runtime": {
           "test_project.dll": {}
@@ -22,37 +20,26 @@
           "Microsoft.NETCore.Platforms": "3.1.4"
         }
       },
-      "ScottPlot/4.1.61": {
+      "ScottPlot/4.1.63": {
         "dependencies": {
           "System.Drawing.Common": "4.7.2",
           "System.Numerics.Vectors": "4.5.0"
         },
         "runtime": {
           "lib/net6.0/ScottPlot.dll": {
-            "assemblyVersion": "4.1.61.0",
-            "fileVersion": "4.1.61.0"
+            "assemblyVersion": "4.1.63.0",
+            "fileVersion": "4.1.63.0"
           }
         }
       },
-      "ScottPlot.WinForms/4.1.61": {
+      "ScottPlot.WinForms/4.1.63": {
         "dependencies": {
-          "ScottPlot": "4.1.61"
+          "ScottPlot": "4.1.63"
         },
         "runtime": {
           "lib/net6.0-windows7.0/ScottPlot.WinForms.dll": {
-            "assemblyVersion": "4.1.61.0",
-            "fileVersion": "4.1.61.0"
-          }
-        }
-      },
-      "ScottPlot.WPF/4.1.61": {
-        "dependencies": {
-          "ScottPlot": "4.1.61"
-        },
-        "runtime": {
-          "lib/net6.0-windows7.0/ScottPlot.WPF.dll": {
-            "assemblyVersion": "4.1.61.0",
-            "fileVersion": "4.1.61.0"
+            "assemblyVersion": "4.1.63.0",
+            "fileVersion": "4.1.63.0"
           }
         }
       },
@@ -85,26 +72,19 @@
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
     },
-    "ScottPlot/4.1.61": {
+    "ScottPlot/4.1.63": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MdAL3fLlFMTlCGwc19w+IcPNQL77RQExZRsx5cfUdtjvJKk6X81PdQ/eKdYVIhYLhTOXJ7X60GeLU63iZg4hFA==",
-      "path": "scottplot/4.1.61",
-      "hashPath": "scottplot.4.1.61.nupkg.sha512"
+      "sha512": "sha512-ph9TskhXC31lySsZLDRzo5g1ujG1GnMDM/xPFeU6ntP2c58WEvf0nP7Pe5hAT7E5t7kwM0SAn0rsAqK6++PP5w==",
+      "path": "scottplot/4.1.63",
+      "hashPath": "scottplot.4.1.63.nupkg.sha512"
     },
-    "ScottPlot.WinForms/4.1.61": {
+    "ScottPlot.WinForms/4.1.63": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-d/VSKSUNAr+7zg0Kg4IaN7C3GE71GRmmjw3rgsJLuFrh44KCGlTF6rlabHE/ZOFaOq5eWTjaQNCDlxjK8wGEMg==",
-      "path": "scottplot.winforms/4.1.61",
-      "hashPath": "scottplot.winforms.4.1.61.nupkg.sha512"
-    },
-    "ScottPlot.WPF/4.1.61": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-l7k6QquD2heiNZsoJA+kKOV2o3QyvGvChWfK0swK9FRU7KcMLdL4vh7npEcbz1NgW9UnMQJRAjs/+sn4rSV/Xg==",
-      "path": "scottplot.wpf/4.1.61",
-      "hashPath": "scottplot.wpf.4.1.61.nupkg.sha512"
+      "sha512": "sha512-Ldi7Rs9UpchKIFG+hLQ4WWUaSMEHxFZWIZt+fbJ0Tgmy9YMWIqBwbnqZt+2Mq3a4ZawZof0T3nMj6WMYwCK6ew==",
+      "path": "scottplot.winforms/4.1.63",
+      "hashPath": "scottplot.winforms.4.1.63.nupkg.sha512"
     },
     "System.Drawing.Common/4.7.2": {
       "type": "package",

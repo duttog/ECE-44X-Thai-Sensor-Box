@@ -23,6 +23,7 @@ namespace test_project
         private string dataFile = "";
         private initForm init;
         private Form1 fileExplorer;
+        private dataForm graphs;
 
         // this is basically a list of timestamps with data
         // making the data and getter static allows for one copy
@@ -65,6 +66,7 @@ namespace test_project
             // create all forms for the application
             init = CreateForm<initForm>();
             fileExplorer = CreateForm<Form1>();
+            graphs = CreateForm<dataForm>();
 
 
             // attach the necessary events for each form
@@ -81,6 +83,7 @@ namespace test_project
             // the only form showing at the beginning should be the initForm
             init.Show();
             fileExplorer.Hide();
+            graphs.Hide();
 
 
 
@@ -124,10 +127,14 @@ namespace test_project
             fileExplorer.Hide();
             // show an empty data form while the program parses
 
-            edf = new EnvironmentalDataFile(filename);
-
             // I need to pass this data file into the graphing form and then update the drawings once
             // they are written
+            graphs.Refresh();
+            graphs.Show();
+
+            edf = new EnvironmentalDataFile(filename);
+
+            
         }
 
         /// <summary>
