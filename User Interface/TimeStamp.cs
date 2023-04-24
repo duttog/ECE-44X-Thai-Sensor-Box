@@ -34,7 +34,7 @@ namespace test_project
             
             day = Int32.Parse(tokens[0]);
             month = Int32.Parse(tokens[1]);
-            year = Int32.Parse(tokens[2]);
+            year = 2000 + Int32.Parse(tokens[2]);
 
             timeValue = new DateTime(year, month, day, hour, minute, 0); // accuracy of seconds does not matter
 
@@ -46,7 +46,8 @@ namespace test_project
             // Might need to check this loop to make sure it operates correctly in edge cases
             for (int i = 1; i < lines.Length; i++)
             {
-                sensorIds[i - 1] = lines[i][0];
+                // need to change this for double digit sensor ids
+                sensorIds[i - 1] = lines[i][0] - 48; // the -48 is for ascii char to int conversion
                 if (sensorValues == null)
                 {
                     sensorValues = new List<SensorReadings>();
@@ -75,6 +76,18 @@ namespace test_project
             return this.sensorIds;
         }
 
+        public SensorReadings? findSensorData(int sensorId)
+        {
+            foreach (SensorReadings sensorData in sensorValues)
+            {
+                if (sensorData.getID() == sensorId)
+                {
+                    return sensorData;
+                }
+            }
+
+            return null;
+        }
 
     }
 }

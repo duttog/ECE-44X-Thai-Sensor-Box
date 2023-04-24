@@ -83,6 +83,7 @@
             Name = "dataForm";
             Text = "Form2";
             Load += dataForm_Load;
+            Shown += dataForm_Shown;
             ResumeLayout(false);
         }
 

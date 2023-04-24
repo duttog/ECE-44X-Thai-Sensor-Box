@@ -19,6 +19,7 @@ namespace test_project
         private ScottPlot.Plot? temperature;
         private ScottPlot.Plot? windSpeed;
         private ScottPlot.Plot? waterLevel;
+        private dataGraph? sortedData;
 
         /// <summary>
         /// This is the constructor for the form. This happens during the program initialization stage,
@@ -29,7 +30,7 @@ namespace test_project
         {
             InitializeComponent();
 
-         
+
             temperature = new ScottPlot.Plot(900, 900);
             windSpeed = new ScottPlot.Plot(900, 900);
             waterLevel = new ScottPlot.Plot(900, 900);
@@ -57,48 +58,9 @@ namespace test_project
 
         private void GraphData()
         {
-            double x_val = 0;
-            List<SensorReadings>? sensor_data = null;
 
 
-            if (current_data != null)
-            {
 
-                foreach (TimeStamp data_point in current_data.getData())
-                {
-                    x_val = data_point.getDate().ToOADate();
-                    sensor_data = data_point.getSensorData();
-
-                    foreach (SensorReadings sensor in sensor_data)
-                    {
-                        int sensID = sensor.getID();
-
-                        // this is a new sensor that is giving a reading
-                        if (!sensorId.Contains(sensID))
-                        {
-                            sensorId.Add(sensID);
-                        }
-
-                        // the sensor already exists
-                        else
-                        {
-                            // 
-                        }
-                    }
-
-
-                }
-            }
-
-            else
-            {
-                // shouldn't happen
-            }
-        }
-
-
-        private void GraphSensor()
-        {
 
         }
 
@@ -130,16 +92,22 @@ namespace test_project
 
         }
 
-        private void InitGraphs(object sender, EventArgs e)
+        private void dataForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataForm_Shown(object sender, EventArgs e)
         {
             // get the data from the program manager
             current_data = ProgramManager.getEDF();
 
-            // 
-        }
+            if (current_data != null)
+            {
+                // sort the data
+                sortedData = new dataGraph(current_data.getData());
+            }
 
-        private void dataForm_Load(object sender, EventArgs e)
-        {
 
         }
     }

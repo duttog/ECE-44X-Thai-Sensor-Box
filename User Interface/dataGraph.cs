@@ -35,7 +35,7 @@ namespace test_project
             // each list of lists with have the height of number of sensors and the 
             // length of the x-axis... if any specific sensor does not have a value 
             // at a specific time then the dot will be filled with a -1
-
+            this.SortData(datapoints);
         }
 
         private void CountUniqueSensors(List<TimeStamp> datapoints)
@@ -74,6 +74,50 @@ namespace test_project
             wtrlvl_vals = new double[this.numIds, length];
             wndspd_vals = new double[this.numIds, length];
             temp_vals = new double[this.numIds, length];
+
+            // iterate over the list of sensor identifiers
+            for (int i = 0; i < allSensIds.Count; i++)
+            {
+                int iterator = 0;
+
+                // check each timestamp to see if the sensor has a value there
+                foreach (TimeStamp datapoint in datapoints)
+                {
+                   
+
+                    // extract the data from the correct SensorValue struct
+                    if (datapoint.getIds().Contains(allSensIds[i]))
+                    {
+                        SensorReadings? sensorData = datapoint.findSensorData(allSensIds[i]);
+
+                        // shouldn't matter because we should have checked the sensor id exists in this timestamp
+                        if (sensorData == null) 
+                        {
+                            throw new Exception();                            
+                        }
+
+                        hum_vals[i, iterator] = sensorData.getHum();
+                        wtrlvl_vals[i, iterator] = sensorData.getLevel();
+                        wndspd_vals[i, iterator] = sensorData.getSpeed();
+                        temp_vals[i, iterator] = sensorData.getTemp();
+
+                        // a sensor can only have one reading per timestamp, so 
+                        // once found break this loop
+                    }
+
+                    // no timestamps had the correct data
+                    else
+                    {
+                        hum_vals[i, iterator] = -1;
+                        wtrlvl_vals[i, iterator] = -1;
+                        wndspd_vals[i, iterator] = -1;
+                        temp_vals[i, iterator] = -1;
+                    }
+
+                    iterator++;
+                }
+            }
+
 
 
         }
