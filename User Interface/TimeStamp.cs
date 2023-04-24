@@ -12,6 +12,7 @@ namespace test_project
         private DateTime timeValue;
         private List<SensorReadings>? sensorValues;
         private int numSensors;
+        private int[] sensorIds;
 
 
         public TimeStamp(string[] lines)
@@ -40,10 +41,12 @@ namespace test_project
 
             /* Calculate the number of sensors  */
             numSensors = lines.Length - 1;
+            sensorIds = new int[numSensors];
 
             // Might need to check this loop to make sure it operates correctly in edge cases
             for (int i = 1; i < lines.Length; i++)
             {
+                sensorIds[i - 1] = lines[i][0];
                 if (sensorValues == null)
                 {
                     sensorValues = new List<SensorReadings>();
@@ -67,6 +70,10 @@ namespace test_project
             return this.sensorValues;
         }
 
+        public int[] getIds()
+        {
+            return this.sensorIds;
+        }
 
 
     }
