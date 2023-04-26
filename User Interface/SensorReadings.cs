@@ -28,8 +28,8 @@ namespace test_project
             string[] tokens = sensorData.Split(delimChars);
 
             sensorID = int.Parse(tokens[0]);
-            humidity = double.Parse(tokens[1]);
-            temperature = double.Parse(tokens[2]);
+            temperature = double.Parse(tokens[1]);
+            humidity = double.Parse(tokens[2]);
             water_level = double.Parse(tokens[3]);
             wind_speed = double.Parse(tokens[4]);
 

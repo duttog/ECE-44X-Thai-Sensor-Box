@@ -16,7 +16,7 @@ namespace test_project
     class dataGraph
     {
         private int numIds;
-        List<int> allSensIds = new List<int>();
+        private List<int> allSensIds = new List<int>();
 
         private List<double> x_coords = new List<double>();
         private double[,] hum_vals;
@@ -119,6 +119,76 @@ namespace test_project
             }
 
 
+
+        }
+
+        public double[] getTime()
+        {
+            return this.x_coords.ToArray();
+        }
+
+        public int[] getSensIds()
+        {
+            return this.allSensIds.ToArray();
+        }
+
+        public double[] getHum(int sensId)
+        {
+            double[] hum = new double[x_coords.Count];
+            
+            int index = allSensIds.IndexOf(sensId);
+
+            for (int i = 0; i < x_coords.Count; i++)
+            {
+                hum[i] = hum_vals[index , i];
+            }
+
+            return hum;
+
+        }
+
+        public double[] getTemp(int sensId)
+        {
+            double[] temp = new double[x_coords.Count];
+
+            int index = allSensIds.IndexOf(sensId);
+
+            for (int i = 0; i < x_coords.Count; i++)
+            {
+                temp[i] = temp_vals[index, i];
+            }
+
+            return temp;
+
+        }
+
+        public double[] getLevel(int sensId)
+        {
+            double[] level = new double[x_coords.Count];
+
+            int index = allSensIds.IndexOf(sensId);
+
+            for (int i = 0; i < x_coords.Count; i++)
+            {
+                level[i] = wtrlvl_vals[index, i];
+            }
+
+            return level;
+
+        }
+
+        public double[] getSpeed(int sensId)
+        {
+            double[] speed = new double[x_coords.Count];
+
+            int index = allSensIds.IndexOf(sensId);
+
+            for (int i = 0; i < x_coords.Count; i++)
+            {
+                speed[i] = wndspd_vals[index, i];
+            }
+
+            return speed;
 
         }
     }

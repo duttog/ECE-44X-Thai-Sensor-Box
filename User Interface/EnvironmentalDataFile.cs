@@ -51,6 +51,11 @@ namespace test_project
                 {
                     newLine = file.ReadLine();
 
+                    if(newLine == null)
+                    {
+                        break;
+                    }
+
                     if (!newLine.Equals(null) && !newLine.Equals(""))
                     {
                         newTimeStamp.Add(newLine);

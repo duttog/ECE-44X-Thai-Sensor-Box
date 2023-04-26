@@ -41,7 +41,6 @@
             tempGraph.Name = "tempGraph";
             tempGraph.Size = new Size(900, 900);
             tempGraph.TabIndex = 0;
-            tempGraph.Load += tempGraph_Load;
             // 
             // wndspdGraph
             // 
@@ -50,7 +49,6 @@
             wndspdGraph.Name = "wndspdGraph";
             wndspdGraph.Size = new Size(900, 900);
             wndspdGraph.TabIndex = 1;
-            wndspdGraph.Load += wndspdGraph_Load;
             // 
             // wtrlvlGraph
             // 
@@ -59,7 +57,6 @@
             wtrlvlGraph.Name = "wtrlvlGraph";
             wtrlvlGraph.Size = new Size(900, 900);
             wtrlvlGraph.TabIndex = 2;
-            wtrlvlGraph.Load += wtrlvlGraph_Load;
             // 
             // humGraph
             // 
@@ -68,7 +65,6 @@
             humGraph.Name = "humGraph";
             humGraph.Size = new Size(900, 900);
             humGraph.TabIndex = 3;
-            humGraph.Load += humGraph_Load;
             // 
             // dataForm
             // 
@@ -82,7 +78,6 @@
             Margin = new Padding(2);
             Name = "dataForm";
             Text = "Form2";
-            Load += dataForm_Load;
             Shown += dataForm_Shown;
             ResumeLayout(false);
         }
