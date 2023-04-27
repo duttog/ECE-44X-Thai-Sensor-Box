@@ -26,7 +26,7 @@ namespace test_project
         public dataForm()
         {
             InitializeComponent();
-            
+
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace test_project
             tempGraph.Plot.YAxis.Label("Temperature [Celsius]");
             tempGraph.Plot.Title("Temperature Graph");
             tempGraph.Plot.XAxis.DateTimeFormat(true);
-            
+
 
             tempGraph.Refresh();
 
@@ -68,7 +68,7 @@ namespace test_project
         private void AddData()
         {
             var humLegend = humGraph.Plot.Legend(true);
-            var tempLegend = tempGraph.Plot.Legend(true);  
+            var tempLegend = tempGraph.Plot.Legend(true);
             var speedLegend = wndspdGraph.Plot.Legend(true);
             var levelLegend = wtrlvlGraph.Plot.Legend(true);
 
@@ -100,7 +100,7 @@ namespace test_project
             wtrlvlGraph.Plot.AxisAutoX();
             humGraph.Plot.AxisAutoX();
 
-            
+
 
             wndspdGraph.Refresh();
             wtrlvlGraph.Refresh();
@@ -134,7 +134,7 @@ namespace test_project
 
             // add the signals to the graph
             this.AddData();
-           
+
 
         }
     }

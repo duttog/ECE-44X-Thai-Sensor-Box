@@ -70,6 +70,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             ClientSize = new Size(2478, 1944);
             Controls.Add(humGraph);
             Controls.Add(wtrlvlGraph);

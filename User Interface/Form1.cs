@@ -129,7 +129,7 @@ namespace test_project
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            string selectFile = FilePath + currentNameSelected;
+            string selectFile = FilePath + @"\" + currentNameSelected;
             FileInfo fileInfo = new FileInfo(selectFile);
 
             if (fileInfo.Extension == ".edf")
