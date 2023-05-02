@@ -37,7 +37,7 @@
             // tempGraph
             // 
             tempGraph.Location = new Point(50, 50);
-            tempGraph.Margin = new Padding(5);
+            tempGraph.Margin = new Padding(5, 5, 5, 5);
             tempGraph.Name = "tempGraph";
             tempGraph.Size = new Size(900, 900);
             tempGraph.TabIndex = 0;
@@ -60,8 +60,11 @@
             // 
             // humGraph
             // 
+            humGraph.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             humGraph.Location = new Point(1050, 50);
             humGraph.Margin = new Padding(6, 5, 6, 5);
+            humGraph.MaximumSize = new Size(900, 900);
+            humGraph.MinimumSize = new Size(231, 234);
             humGraph.Name = "humGraph";
             humGraph.Size = new Size(900, 900);
             humGraph.TabIndex = 3;
@@ -71,12 +74,13 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(2478, 1944);
             Controls.Add(humGraph);
             Controls.Add(wtrlvlGraph);
             Controls.Add(wndspdGraph);
             Controls.Add(tempGraph);
-            Margin = new Padding(2);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "dataForm";
             Text = "Form2";
             Shown += dataForm_Shown;
