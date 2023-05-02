@@ -28,59 +28,119 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(dataForm));
             tempGraph = new ScottPlot.FormsPlot();
             wndspdGraph = new ScottPlot.FormsPlot();
             wtrlvlGraph = new ScottPlot.FormsPlot();
             humGraph = new ScottPlot.FormsPlot();
+            listView1 = new ListView();
+            label1 = new Label();
+            label2 = new Label();
+            warningInformation = new Label();
+            warningImages = new ImageList(components);
             SuspendLayout();
             // 
             // tempGraph
             // 
-            tempGraph.Location = new Point(50, 50);
-            tempGraph.Margin = new Padding(5, 5, 5, 5);
+            tempGraph.Location = new Point(65, 64);
+            tempGraph.Margin = new Padding(6);
             tempGraph.Name = "tempGraph";
-            tempGraph.Size = new Size(900, 900);
+            tempGraph.Size = new Size(1170, 1152);
             tempGraph.TabIndex = 0;
             // 
             // wndspdGraph
             // 
-            wndspdGraph.Location = new Point(50, 1050);
-            wndspdGraph.Margin = new Padding(6, 5, 6, 5);
+            wndspdGraph.Location = new Point(65, 1344);
+            wndspdGraph.Margin = new Padding(8, 6, 8, 6);
             wndspdGraph.Name = "wndspdGraph";
-            wndspdGraph.Size = new Size(900, 900);
+            wndspdGraph.Size = new Size(1170, 1152);
             wndspdGraph.TabIndex = 1;
             // 
             // wtrlvlGraph
             // 
-            wtrlvlGraph.Location = new Point(1050, 1050);
-            wtrlvlGraph.Margin = new Padding(6, 5, 6, 5);
+            wtrlvlGraph.Location = new Point(1365, 1344);
+            wtrlvlGraph.Margin = new Padding(8, 6, 8, 6);
             wtrlvlGraph.Name = "wtrlvlGraph";
-            wtrlvlGraph.Size = new Size(900, 900);
+            wtrlvlGraph.Size = new Size(1170, 1152);
             wtrlvlGraph.TabIndex = 2;
             // 
             // humGraph
             // 
             humGraph.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            humGraph.Location = new Point(1050, 50);
-            humGraph.Margin = new Padding(6, 5, 6, 5);
-            humGraph.MaximumSize = new Size(900, 900);
-            humGraph.MinimumSize = new Size(231, 234);
+            humGraph.Location = new Point(1365, 64);
+            humGraph.Margin = new Padding(8, 6, 8, 6);
+            humGraph.MaximumSize = new Size(1170, 1152);
+            humGraph.MinimumSize = new Size(300, 300);
             humGraph.Name = "humGraph";
-            humGraph.Size = new Size(900, 900);
+            humGraph.Size = new Size(1170, 1152);
             humGraph.TabIndex = 3;
+            // 
+            // listView1
+            // 
+            listView1.Location = new Point(2620, 151);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(561, 1024);
+            listView1.SmallImageList = warningImages;
+            listView1.TabIndex = 4;
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.View = View.List;
+            // 
+            // label1
+            // 
+            label1.BackColor = SystemColors.Window;
+            label1.BorderStyle = BorderStyle.FixedSingle;
+            label1.Location = new Point(2620, 116);
+            label1.Name = "label1";
+            label1.Size = new Size(561, 36);
+            label1.TabIndex = 5;
+            label1.Text = "Warning List";
+            label1.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // label2
+            // 
+            label2.BackColor = SystemColors.Window;
+            label2.BorderStyle = BorderStyle.FixedSingle;
+            label2.Location = new Point(2620, 1245);
+            label2.Name = "label2";
+            label2.Size = new Size(561, 36);
+            label2.TabIndex = 6;
+            label2.Text = "Warning Information";
+            label2.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // warningInformation
+            // 
+            warningInformation.BackColor = SystemColors.Window;
+            warningInformation.BorderStyle = BorderStyle.FixedSingle;
+            warningInformation.Location = new Point(2620, 1281);
+            warningInformation.Name = "warningInformation";
+            warningInformation.Size = new Size(561, 579);
+            warningInformation.TabIndex = 7;
+            // 
+            // warningImages
+            // 
+            warningImages.ColorDepth = ColorDepth.Depth16Bit;
+            warningImages.ImageStream = (ImageListStreamer)resources.GetObject("warningImages.ImageStream");
+            warningImages.TransparentColor = Color.Transparent;
+            warningImages.Images.SetKeyName(0, "check_mark.png");
+            warningImages.Images.SetKeyName(1, "red_x.png");
+            warningImages.Images.SetKeyName(2, "warning_triangle.png");
             // 
             // dataForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(2478, 1944);
+            ClientSize = new Size(3221, 2119);
+            Controls.Add(warningInformation);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(listView1);
             Controls.Add(humGraph);
             Controls.Add(wtrlvlGraph);
             Controls.Add(wndspdGraph);
             Controls.Add(tempGraph);
-            Margin = new Padding(2, 2, 2, 2);
             Name = "dataForm";
             Text = "Form2";
             Shown += dataForm_Shown;
@@ -93,5 +153,10 @@
         private ScottPlot.FormsPlot wndspdGraph;
         private ScottPlot.FormsPlot wtrlvlGraph;
         private ScottPlot.FormsPlot humGraph;
+        private ListView listView1;
+        private Label label1;
+        private Label label2;
+        private Label warningInformation;
+        private ImageList warningImages;
     }
 }

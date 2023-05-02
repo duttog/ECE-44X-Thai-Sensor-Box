@@ -17,6 +17,7 @@ namespace test_project
         private EnvironmentalDataFile? current_data = null;
         private List<int> sensorId = new List<int>();
         private dataGraph? sortedData;
+        private List<TimeStamp> warningList = new List<TimeStamp>();
 
         /// <summary>
         /// This is the constructor for the form. This happens during the program initialization stage,
@@ -135,6 +136,44 @@ namespace test_project
             // add the signals to the graph
             this.AddData();
 
+            // generate the warnings from the graph
+
+
+            // place the warnings on the 
+        }
+
+        private void generateWarnings()
+        {
+            // look for differences of over 10% between two readings
+            
+            
+            // look for differences of over 5 degrees celsius
+            
+
+            // look for any sensor over 50 degrees <- start here!
+            
+
+
+        }
+
+        private void placeWarnings()
+        {
+            // 
+            
+        }
+
+
+
+
+
+
+
+
+
+
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

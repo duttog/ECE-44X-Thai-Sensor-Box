@@ -186,5 +186,9 @@ namespace test_project
             }
         }
 
+        private void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
