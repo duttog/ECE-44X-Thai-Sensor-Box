@@ -283,19 +283,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Blake\\.nuget\\packages\\": {}
+    "C:\\Users\\blake\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Blake\\source\\repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
+      "projectUniqueName": "C:\\Users\\blake\\source\\repos\\duttog\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
       "projectName": "test_project",
-      "projectPath": "C:\\Users\\Blake\\source\\repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
-      "packagesPath": "C:\\Users\\Blake\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Blake\\source\\repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\obj\\",
+      "projectPath": "C:\\Users\\blake\\source\\repos\\duttog\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
+      "packagesPath": "C:\\Users\\blake\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\blake\\source\\repos\\duttog\\ECE-44X-Thai-Sensor-Box\\User Interface\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Blake\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\blake\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

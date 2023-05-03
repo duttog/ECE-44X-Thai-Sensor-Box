@@ -54,6 +54,7 @@
             wndspdGraph.Location = new Point(35, 630);
             wndspdGraph.Margin = new Padding(4, 3, 4, 3);
             wndspdGraph.Name = "wndspdGraph";
+            wndspdGraph.Padding = new Padding(0, 0, 0, 10);
             wndspdGraph.Size = new Size(630, 540);
             wndspdGraph.TabIndex = 1;
             // 
@@ -138,6 +139,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1734, 993);
