@@ -17,7 +17,7 @@ namespace test_project
         private EnvironmentalDataFile? current_data = null;
         private List<int> sensorId = new List<int>();
         private dataGraph? sortedData;
-        private List<TimeStamp> warningList = new List<TimeStamp>();
+        private List<warningInformation> warningList = new List<warningInformation>();
 
         /// <summary>
         /// This is the constructor for the form. This happens during the program initialization stage,
@@ -137,42 +137,51 @@ namespace test_project
             this.AddData();
 
             // generate the warnings from the graph
+            this.generateWarnings();
 
-
-            // place the warnings on the 
+            // place the warnings on the warning list
+            this.placeWarnings();
         }
 
         private void generateWarnings()
         {
-            // look for differences of over 10% between two readings
-            
-            
-            // look for differences of over 5 degrees celsius
-            
+            // 
+            var timeList = current_data.getData();
 
-            // look for any sensor over 50 degrees <- start here!
-            
+            TimeStamp point1, point2;
 
+            for (int i = 1; i < timeList.Count; i++)
+            {
+                // get both points
+                point1 = timeList[i - 1];
+                point2 = timeList[i];
 
+                // check for any differences
+                var warnings = point1.checkDifferences(point2);
+                if (warnings != null)
+                {
+                    foreach (int[] warningPoint in warnings)
+                    {
+                        warningList.Add(new warningInformation(point1, point2, warningPoint[1], warningPoint[0]));
+                    }
+                }
+            }
         }
 
         private void placeWarnings()
         {
-            // 
-            
+            // clear any current warnings
+            warningListIcon.Items.Clear();
+
+            // add the most recent discovered timestamps
+            foreach (var warning in warningList)
+            {
+                warningListIcon.Items.Add(warning.ConstructWarningIcon(), 2);
+            }
         }
 
-
-
-
-
-
-
-
-
-
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        // when selecting an item, list the relevant information
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

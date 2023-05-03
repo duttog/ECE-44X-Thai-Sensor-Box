@@ -19,19 +19,19 @@ namespace test_project
         {
             /* Construct the DateTime portion of the class */
             int hour, minute, day, month, year;
-            
+
             int comma = lines[0].IndexOf(",");
             int semiColon = lines[0].IndexOf(";");
             int colon = lines[0].IndexOf(":");
-            
+
             hour = Int32.Parse(lines[0].Substring(comma + 1, colon - (comma + 1)));
             minute = Int32.Parse(lines[0].Substring(colon + 1, semiColon - (colon + 1)));
 
             string date_string = lines[0].Substring(0, comma);
 
-            char[] delimiterChars = {',', '-'};
+            char[] delimiterChars = { ',', '-' };
             string[] tokens = date_string.Split(delimiterChars);
-            
+
             day = Int32.Parse(tokens[0]);
             month = Int32.Parse(tokens[1]);
             year = 2000 + Int32.Parse(tokens[2]);
@@ -87,6 +87,52 @@ namespace test_project
             }
 
             return null;
+        }
+
+
+        public List<int[]>? checkDifferences(TimeStamp prevData)
+        {
+            int currId = 0;
+            List<int[]> id_type_pair = new List<int[]>();
+
+            for (int i = 0; i < this.numSensors; i++)
+            {
+                currId = sensorIds[i];
+                var prevSensor = prevData.findSensorData(currId);
+                var currSensor = this.findSensorData(currId);
+
+                // the current sensor ID exists in both time stamps
+                if (prevSensor != null && currSensor != null)
+                {
+                    if (currSensor.getTemp() > warningInformation.getMaxTemp())
+                    {
+                        // temperature got over 50 degrees
+                        id_type_pair.Add(new int[2] { currId, 1 });
+                    }
+
+                    else if (currSensor.getTemp() - prevSensor.getTemp() > warningInformation.getDeltaTemp() || currSensor.getTemp() - prevSensor.getTemp() < (-1 * warningInformation.getDeltaTemp()))
+                    {
+                        // temperature has changed more than five degrees
+                        id_type_pair.Add(new int[2] { currId, 2 });
+                    }
+
+                    else if (currSensor.getHum() - prevSensor.getHum() > warningInformation.getDeltaHum() || currSensor.getTemp() - prevSensor.getTemp() < (-1 * warningInformation.getDeltaHum()))
+                    {
+                        // temperature has changed more than five degrees
+                        id_type_pair.Add(new int[2] { currId, 3 });
+                    }
+                }
+            }
+
+            if (id_type_pair.Count > 0)
+            {
+                return id_type_pair;
+            }
+
+            else
+            {
+                return null;
+            }
         }
 
     }
