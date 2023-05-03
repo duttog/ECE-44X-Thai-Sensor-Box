@@ -29,23 +29,19 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(initForm));
             beginDataCaptureButton = new Button();
             displayEnvDataButton = new Button();
-            splitter1 = new Splitter();
             imageList1 = new ImageList(components);
             backgroundDataImage = new PictureBox();
             dataDisplayImage = new PictureBox();
-            logoImage = new PictureBox();
-            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)backgroundDataImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataDisplayImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)logoImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // beginDataCaptureButton
             // 
-            beginDataCaptureButton.Location = new Point(150, 100);
+            beginDataCaptureButton.Location = new Point(225, 25);
             beginDataCaptureButton.Name = "beginDataCaptureButton";
             beginDataCaptureButton.Size = new Size(200, 23);
             beginDataCaptureButton.TabIndex = 0;
@@ -55,21 +51,13 @@
             // 
             // displayEnvDataButton
             // 
-            displayEnvDataButton.Location = new Point(650, 100);
+            displayEnvDataButton.Location = new Point(850, 25);
             displayEnvDataButton.Name = "displayEnvDataButton";
             displayEnvDataButton.Size = new Size(200, 23);
             displayEnvDataButton.TabIndex = 1;
             displayEnvDataButton.Text = "Display Environmental Data";
             displayEnvDataButton.UseVisualStyleBackColor = true;
             displayEnvDataButton.Click += displayEnvDataButton_Click;
-            // 
-            // splitter1
-            // 
-            splitter1.Location = new Point(0, 0);
-            splitter1.Name = "splitter1";
-            splitter1.Size = new Size(500, 461);
-            splitter1.TabIndex = 2;
-            splitter1.TabStop = false;
             // 
             // imageList1
             // 
@@ -79,67 +67,50 @@
             // 
             // backgroundDataImage
             // 
-            backgroundDataImage.Location = new Point(100, 150);
+            backgroundDataImage.BorderStyle = BorderStyle.FixedSingle;
+            backgroundDataImage.Image = (Image)resources.GetObject("backgroundDataImage.Image");
+            backgroundDataImage.Location = new Point(25, 80);
             backgroundDataImage.Name = "backgroundDataImage";
-            backgroundDataImage.Size = new Size(300, 150);
+            backgroundDataImage.Size = new Size(611, 294);
+            backgroundDataImage.SizeMode = PictureBoxSizeMode.AutoSize;
             backgroundDataImage.TabIndex = 3;
             backgroundDataImage.TabStop = false;
             // 
             // dataDisplayImage
             // 
-            dataDisplayImage.Location = new Point(600, 150);
+            dataDisplayImage.BorderStyle = BorderStyle.FixedSingle;
+            dataDisplayImage.Image = (Image)resources.GetObject("dataDisplayImage.Image");
+            dataDisplayImage.Location = new Point(700, 80);
             dataDisplayImage.Name = "dataDisplayImage";
-            dataDisplayImage.Size = new Size(300, 150);
+            dataDisplayImage.Size = new Size(465, 281);
+            dataDisplayImage.SizeMode = PictureBoxSizeMode.AutoSize;
             dataDisplayImage.TabIndex = 4;
             dataDisplayImage.TabStop = false;
-            // 
-            // logoImage
-            // 
-            logoImage.Location = new Point(380, 340);
-            logoImage.Name = "logoImage";
-            logoImage.Size = new Size(96, 96);
-            logoImage.TabIndex = 5;
-            logoImage.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new Point(520, 340);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(96, 96);
-            pictureBox1.TabIndex = 6;
-            pictureBox1.TabStop = false;
             // 
             // initForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(984, 461);
-            Controls.Add(pictureBox1);
-            Controls.Add(logoImage);
+            ClientSize = new Size(1184, 401);
             Controls.Add(dataDisplayImage);
             Controls.Add(backgroundDataImage);
             Controls.Add(beginDataCaptureButton);
-            Controls.Add(splitter1);
             Controls.Add(displayEnvDataButton);
             Name = "initForm";
             Text = "initForm";
             Load += initForm_Load;
             ((System.ComponentModel.ISupportInitialize)backgroundDataImage).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataDisplayImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)logoImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button beginDataCaptureButton;
         private Button displayEnvDataButton;
-        private Splitter splitter1;
         private ImageList imageList1;
         private PictureBox backgroundDataImage;
         private PictureBox dataDisplayImage;
-        private PictureBox logoImage;
-        private PictureBox pictureBox1;
     }
 }

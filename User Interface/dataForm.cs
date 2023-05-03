@@ -157,7 +157,7 @@ namespace test_project
                 point2 = timeList[i];
 
                 // check for any differences
-                var warnings = point1.checkDifferences(point2);
+                var warnings = point2.checkDifferences(point1);
                 if (warnings != null)
                 {
                     foreach (int[] warningPoint in warnings)
@@ -184,6 +184,126 @@ namespace test_project
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void warningListIcon_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            warningInformation? actualWarning = null;
+
+            // to use this information, i need to actually find the same warningInformation struct
+            foreach (var warning in warningList)
+            {
+                if (warning.getWarningMessage() != null)
+                {
+                    if (warning.getWarningMessage().Equals(e.Item.Text))
+                    {
+                        actualWarning = warning;
+                        break;
+                    }
+                }
+            }
+
+            if (actualWarning != null)
+            {
+                warningInformation.Text = WriteToWarningBox(actualWarning);
+            }
+
+            else
+            {
+                warningInformation.Text = "ERROR";
+            }
+
+        }
+
+        private string WriteToWarningBox(warningInformation warning)
+        {
+            var textbox = new StringBuilder();
+
+            /*
+             * Part 1: (line not included)
+             * DateTime String
+             * Sensor ID: {}
+             * Warning Type: {}
+             * 
+             * Part 2: (line not included)
+             * Previous Sensor Readings:
+             * Temperature = {}
+             * Humidity = {}
+             * Wind Speed = {}
+             * Water Level = {}
+             * 
+             * Part 3: (line not included)
+             * Current Sensor Readings:
+             * Temperature = {}
+             * Humidity = {}
+             * Wind Speed = {}
+             * Water Level = {}
+             * 
+             * Part 4: (line not included)
+             * Change in Readings:
+             * Temperature = {}
+             * Humidity = {}
+             * Wind Speed = {}
+             * Water Level = {}
+             */
+
+
+
+            // Beginning of Part 1
+            textbox.Append(warning.getTime() + "\n");
+            textbox.Append("Sensor ID: " + warning.getID().ToString() + "\n");
+
+            switch (warning.getWarningType())
+            {
+                case 1:
+                    textbox.Append("Warning Type: Maximum Temperature Exceeded!\n");
+                    break;
+
+                case 2:
+                    textbox.Append("Warning Type: Change in Temperature Exceeded!\n");
+                    break;
+
+                case 3:
+                    textbox.Append("Warning Type: Change in Humidity Exceeded!\n");
+                    break;
+
+                default:
+                    textbox.Append("Warning Type: Unregistered Error Type!\n");
+                    break;
+            }
+            // End of Part 1
+
+
+
+            // Beginning of Part 2
+            textbox.Append("\nPrevious Sensor Readings: \n");
+            textbox.Append("Temperature: " + warning.getReadings()[0].findSensorData(warning.getID()).getTemp().ToString() + "\n");
+            textbox.Append("Humidity: " + warning.getReadings()[0].findSensorData(warning.getID()).getHum().ToString() + "\n");
+            textbox.Append("Wind Speed: " + warning.getReadings()[0].findSensorData(warning.getID()).getSpeed().ToString() + "\n");
+            textbox.Append("Water Level: " + warning.getReadings()[0].findSensorData(warning.getID()).getLevel().ToString() + "\n");
+            // End of Part 2
+
+
+
+            // Beginning of Part 3
+            textbox.Append("\nCurrent Sensor Readings: \n");
+            textbox.Append("Temperature: " + warning.getReadings()[1].findSensorData(warning.getID()).getTemp().ToString() + "\n");
+            textbox.Append("Humidity: " + warning.getReadings()[1].findSensorData(warning.getID()).getHum().ToString() + "\n");
+            textbox.Append("Wind Speed: " + warning.getReadings()[1].findSensorData(warning.getID()).getSpeed().ToString() + "\n");
+            textbox.Append("Water Level: " + warning.getReadings()[1].findSensorData(warning.getID()).getLevel().ToString() + "\n");
+            // End of Part 3
+
+
+
+            // Beginning of Part 4
+            textbox.Append("\nChange in Readings: \n");
+            textbox.Append("Temperature: " + (warning.getReadings()[1].findSensorData(warning.getID()).getTemp() - warning.getReadings()[0].findSensorData(warning.getID()).getTemp()).ToString("F2") + "\n");
+            textbox.Append("Humidity: " + (warning.getReadings()[1].findSensorData(warning.getID()).getHum() - warning.getReadings()[0].findSensorData(warning.getID()).getHum()).ToString("F2") + "\n");
+            textbox.Append("Wind Speed: " + (warning.getReadings()[1].findSensorData(warning.getID()).getSpeed() - warning.getReadings()[0].findSensorData(warning.getID()).getSpeed()).ToString("F2") + "\n");
+            textbox.Append("Water Level: " + (warning.getReadings()[1].findSensorData(warning.getID()).getLevel() - warning.getReadings()[0].findSensorData(warning.getID()).getLevel()).ToString("F2") + "\n");
+            // End of Part 4
+
+            return textbox.ToString();
         }
     }
 }

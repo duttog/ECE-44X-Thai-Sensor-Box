@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace test_project
 {
@@ -33,6 +34,7 @@ namespace test_project
         private TimeStamp final_reading;
         private int warning_type;
         private int sensId;
+        private string? warningMessage;
 
         /*
          * List of warning types:
@@ -52,14 +54,24 @@ namespace test_project
             this.sensId = sensId;
         }
 
+        public string? getWarningMessage()
+        {
+            return this.warningMessage;
+        }
+
 
         public string getTime()
         {
-            return final_reading.ToString();
+            return final_reading.getDate().ToString("G", CultureInfo.GetCultureInfo("es-ES"));
         }
 
         public int getWarningType() {
             return warning_type;
+        }
+
+        public int getID()
+        {
+            return this.sensId;
         }
 
         public TimeStamp[] getReadings()
@@ -71,7 +83,7 @@ namespace test_project
         {
             var icon = new StringBuilder();
 
-            icon.Append(this.final_reading.getDate().ToString());
+            icon.Append(this.final_reading.getDate().ToString("G", CultureInfo.GetCultureInfo("es-ES")));
             icon.Append(" Sensor ID: ");
             icon.Append(this.sensId.ToString());
             icon.Append(" Warning Type: ");
@@ -96,7 +108,7 @@ namespace test_project
                     break;
 
             }
-
+            warningMessage = icon.ToString();
             return icon.ToString();
         }
 

@@ -81,11 +81,12 @@
             warningListIcon.Location = new Point(1395, 70);
             warningListIcon.Margin = new Padding(2, 1, 2, 1);
             warningListIcon.Name = "warningListIcon";
-            warningListIcon.Size = new Size(304, 482);
+            warningListIcon.Size = new Size(500, 482);
             warningListIcon.SmallImageList = warningImages;
             warningListIcon.TabIndex = 4;
             warningListIcon.UseCompatibleStateImageBehavior = false;
             warningListIcon.View = View.SmallIcon;
+            warningListIcon.ItemSelectionChanged += warningListIcon_ItemSelectionChanged;
             warningListIcon.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // warningImages
@@ -99,25 +100,25 @@
             // 
             // label1
             // 
-            label1.BackColor = SystemColors.Window;
+            label1.BackColor = Color.Yellow;
             label1.BorderStyle = BorderStyle.FixedSingle;
-            label1.Location = new Point(1395, 51);
+            label1.Location = new Point(1395, 53);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(303, 18);
+            label1.Size = new Size(500, 18);
             label1.TabIndex = 5;
             label1.Text = "Warning List";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // label2
             // 
-            label2.BackColor = SystemColors.Window;
+            label2.BackColor = Color.DeepSkyBlue;
             label2.BorderStyle = BorderStyle.FixedSingle;
             label2.Location = new Point(1395, 581);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Padding = new Padding(0, 0, 15, 0);
-            label2.Size = new Size(303, 18);
+            label2.Size = new Size(500, 18);
             label2.TabIndex = 6;
             label2.Text = "Warning Information";
             label2.TextAlign = ContentAlignment.TopCenter;
@@ -130,7 +131,7 @@
             warningInformation.Margin = new Padding(2, 50, 50, 0);
             warningInformation.Name = "warningInformation";
             warningInformation.Padding = new Padding(0, 0, 100, 0);
-            warningInformation.Size = new Size(303, 272);
+            warningInformation.Size = new Size(500, 320);
             warningInformation.TabIndex = 7;
             // 
             // dataForm

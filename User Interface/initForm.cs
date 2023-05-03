@@ -41,7 +41,7 @@ namespace test_project
 
         private void beginDataCaptureButton_Click(object sender, EventArgs e)
         {
-           
+
             BeginBackgroundCapture?.Invoke(this, EventArgs.Empty);
         }
     }

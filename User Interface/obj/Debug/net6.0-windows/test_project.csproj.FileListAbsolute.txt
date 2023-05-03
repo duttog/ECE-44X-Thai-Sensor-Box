@@ -42,3 +42,4 @@ C:\Users\blake\source\repos\duttog\ECE-44X-Thai-Sensor-Box\User Interface\obj\De
 C:\Users\blake\source\repos\duttog\ECE-44X-Thai-Sensor-Box\User Interface\obj\Debug\net6.0-windows\test_project.pdb
 C:\Users\blake\source\repos\duttog\ECE-44X-Thai-Sensor-Box\User Interface\obj\Debug\net6.0-windows\test_project.genruntimeconfig.cache
 C:\Users\blake\source\repos\duttog\ECE-44X-Thai-Sensor-Box\User Interface\obj\Debug\net6.0-windows\ref\test_project.dll
+C:\Users\Blake\source\repos\ECE-44X-Thai-Sensor-Box\User Interface\obj\Debug\net6.0-windows\test_project.Properties.Resources.resources
