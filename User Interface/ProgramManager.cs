@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using System.IO.Ports;
 using System.Reflection;
@@ -188,9 +189,11 @@ namespace test_project
         private void DataRead(object? sender, SerialDataReceivedEventArgs e)
         {
 
-            List<string> input_data = new List<string>();   
-            StreamWriter writeFile = new StreamWriter(new FileStream(dataFile, FileMode.Append | FileMode.Create));
+            List<string> input_data = new List<string>(); 
+            List<string> curated_data = new List<string>();
+            
 
+            // this reads until either an empty buffer or a timeout exception
             try
             {
                 while (true)
@@ -218,16 +221,77 @@ namespace test_project
                         
 
                         string sensorData = sb.ToString();
-                        writeFile.WriteLine(sensorData);
+                        curated_data.Add(sensorData);
                     }
                 }
 
-                
+
+                StreamWriter writeFile = new StreamWriter(new FileStream(dataFile, FileMode.Append | FileMode.Create));
+
+                writeFile.Write(CurateEDFData(curated_data));
 
                 writeFile.Close();
             }
             
         }
+
+        private string CurateEDFData(List<string> curated_data)
+        {
+            StringBuilder edfData = new StringBuilder();
+            string date_template = DateTime.Now.ToString(CultureInfo.GetCultureInfo("de-DE"));
+            date_template = date_template.Replace('.', '-');
+            date_template = date_template.Replace(' ', ',');
+
+            // we also need to trim the seconds from the reading... find the last occurence of the
+            // ':' character and trim form that index
+            int colon = date_template.LastIndexOf(':');
+
+            // might have to remove a newline charcter
+            date_template = date_template.Remove(colon);
+            edfData.Append(date_template + ";\n");
+
+            foreach (string rawData in curated_data)
+            {
+                
+                edfData.Append(ParseRawData(rawData));
+            }
+
+            edfData.Append('\n');
+            return edfData.ToString();
+        }
+
+        private string ParseRawData(string data)
+        {
+            StringBuilder sb = new StringBuilder();
+            string[] tokens = data.Split(',');
+
+            // token list:
+            // 0: node number
+            // 1: temp
+            // 2: humiditiy
+            // 3: water level
+            // 4: wind speed
+
+            // scope issue :(
+            int index = 0;
+
+            for (int i = 0; i < 3; i++)
+            {
+                index = tokens[i].IndexOf(':');
+                sb.Append(tokens[i].Substring(index + 1) + ',');
+            }
+
+            // water level and wind speed print out-of-order
+            index = tokens[4].IndexOf(':');
+            sb.Append(tokens[4].Substring(index + 1) + ',');
+
+            index = tokens[3].IndexOf(':');
+            sb.Append(tokens[3].Substring(index + 1));
+            sb.Append(";\n");
+
+            return sb.ToString();
+        }
+
 
 
     }
