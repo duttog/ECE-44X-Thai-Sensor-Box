@@ -19,6 +19,10 @@ namespace test_project
         private dataGraph? sortedData;
         private List<warningInformation> warningList = new List<warningInformation>();
 
+        public event EventHandler RefreshDisplay;
+        public event EventHandler NewFile;
+        public event EventHandler BackgroundBegin;
+
         /// <summary>
         /// This is the constructor for the form. This happens during the program initialization stage,
         /// so the data itself is not available. When the form itself is shown the data will be plotted,
@@ -180,12 +184,6 @@ namespace test_project
             }
         }
 
-        // when selecting an item, list the relevant information
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void warningListIcon_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             warningInformation? actualWarning = null;
@@ -304,6 +302,24 @@ namespace test_project
             // End of Part 4
 
             return textbox.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            RefreshDisplay?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void newFileButton_Click(object sender, EventArgs e)
+        {
+            NewFile?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void backgroundDataButton_Click(object sender, EventArgs e)
+        {
+            BackgroundBegin?.Invoke(this, EventArgs.Empty);
         }
     }
 }

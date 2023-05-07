@@ -46,6 +46,14 @@ namespace test_project
 
         private void onFormClosed(object? sender, FormClosedEventArgs e)
         {
+            if (hostNode != null)
+            {
+                try
+                {
+                    hostNode.Close();
+                    hostNode.Dispose(); 
+                } catch { }
+            }
             Application.Exit();
         }
 
@@ -89,6 +97,10 @@ namespace test_project
 
             // add any events to the background data screen
             backgroundData.beginDataCollection += DataCollection;
+
+            graphs.RefreshDisplay += RefreshData;
+            graphs.NewFile += ChooseNewFile;
+            graphs.BackgroundBegin += ReadingFromGraph;
             
             // the only form showing at the beginning should be the initForm
             init.Show();
@@ -144,12 +156,10 @@ namespace test_project
 
             // I need to pass this data file into the graphing form and then update the drawings once
             // they are written
-            graphs.Refresh();
-            graphs.Show();
-
             edf = new EnvironmentalDataFile(filename);
 
-            
+            graphs.Refresh();
+            graphs.Show();
         }
 
         /// <summary>
@@ -292,6 +302,51 @@ namespace test_project
             return sb.ToString();
         }
 
+        private void RefreshData(object? sender,  EventArgs e)
+        {
+            edf = new EnvironmentalDataFile(dataFile);
+
+            graphs.Hide();
+
+            graphs = CreateForm<dataForm>();
+
+            graphs.RefreshDisplay += RefreshData;
+            graphs.NewFile += ChooseNewFile;
+            graphs.BackgroundBegin += ReadingFromGraph;;
+            
+            graphs.Show();
+        }
+        
+
+        /// <summary>
+        /// This needs a different event because different forms are open
+        /// </summary>
+        private void ReadingFromGraph(object? sender, EventArgs e)
+        {
+            graphs.Hide();
+
+            graphs = CreateForm<dataForm>();
+
+            graphs.RefreshDisplay += RefreshData;
+            graphs.NewFile += ChooseNewFile;
+            graphs.BackgroundBegin += ReadingFromGraph;
+
+            backgroundData.Show();
+
+        }
+
+        private void ChooseNewFile(object? sender, EventArgs e)
+        {
+            graphs.Hide();
+
+            graphs = CreateForm<dataForm>();
+
+            graphs.RefreshDisplay += RefreshData;
+            graphs.NewFile += ChooseNewFile;
+            graphs.BackgroundBegin += ReadingFromGraph;
+
+            fileExplorer.Show();
+        }
 
 
     }

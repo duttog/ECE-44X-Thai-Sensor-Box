@@ -39,6 +39,9 @@
             label1 = new Label();
             label2 = new Label();
             warningInformation = new Label();
+            backgroundDataButton = new Button();
+            newFileButton = new Button();
+            refreshButton = new Button();
             SuspendLayout();
             // 
             // tempGraph
@@ -88,7 +91,6 @@
             warningListIcon.UseCompatibleStateImageBehavior = false;
             warningListIcon.View = View.SmallIcon;
             warningListIcon.ItemSelectionChanged += warningListIcon_ItemSelectionChanged;
-            warningListIcon.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // warningImages
             // 
@@ -135,6 +137,39 @@
             warningInformation.Size = new Size(500, 320);
             warningInformation.TabIndex = 7;
             // 
+            // backgroundDataButton
+            // 
+            backgroundDataButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            backgroundDataButton.Location = new Point(1395, 1076);
+            backgroundDataButton.Name = "backgroundDataButton";
+            backgroundDataButton.Size = new Size(500, 50);
+            backgroundDataButton.TabIndex = 8;
+            backgroundDataButton.Text = "Begin Background Data Reading";
+            backgroundDataButton.UseVisualStyleBackColor = true;
+            backgroundDataButton.Click += backgroundDataButton_Click;
+            // 
+            // newFileButton
+            // 
+            newFileButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            newFileButton.Location = new Point(1395, 1007);
+            newFileButton.Name = "newFileButton";
+            newFileButton.Size = new Size(500, 50);
+            newFileButton.TabIndex = 9;
+            newFileButton.Text = "Choose New File";
+            newFileButton.UseVisualStyleBackColor = true;
+            newFileButton.Click += newFileButton_Click;
+            // 
+            // refreshButton
+            // 
+            refreshButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            refreshButton.Location = new Point(1395, 936);
+            refreshButton.Name = "refreshButton";
+            refreshButton.Size = new Size(500, 50);
+            refreshButton.TabIndex = 10;
+            refreshButton.Text = "Refresh Data";
+            refreshButton.UseVisualStyleBackColor = true;
+            refreshButton.Click += refreshButton_Click;
+            // 
             // dataForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -142,7 +177,10 @@
             AutoScroll = true;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(1734, 993);
+            ClientSize = new Size(1930, 1199);
+            Controls.Add(refreshButton);
+            Controls.Add(newFileButton);
+            Controls.Add(backgroundDataButton);
             Controls.Add(warningInformation);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -169,5 +207,8 @@
         private Label label2;
         private Label warningInformation;
         private ImageList warningImages;
+        private Button backgroundDataButton;
+        private Button newFileButton;
+        private Button refreshButton;
     }
 }

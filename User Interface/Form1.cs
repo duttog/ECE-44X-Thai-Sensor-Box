@@ -190,5 +190,12 @@ namespace test_project
         {
 
         }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            // Setup the file display
+            filePathTextBox.Text = FilePath;
+            insertFiles();
+        }
     }
 }
