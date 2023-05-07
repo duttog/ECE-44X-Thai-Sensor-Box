@@ -35,6 +35,15 @@ namespace test_project
 
         }
 
+        public SensorReadings()
+        {
+            sensorID = -1;
+            humidity = 0;
+            temperature = 0;
+            water_level = 0;
+            wind_speed = 0;
+        }
+
         public int getID()
         {
             return this.sensorID;

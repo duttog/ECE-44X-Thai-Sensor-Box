@@ -1,11 +1,16 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
+using System.IO.Ports;
+using System.Reflection;
+using System.DirectoryServices;
 
 namespace test_project
 {
@@ -16,14 +21,15 @@ namespace test_project
         BeginDataCharts,
     }
 
-
-
     class ProgramManager : ApplicationContext
     {
         private string dataFile = "";
         private initForm init;
         private Form1 fileExplorer;
         private dataForm graphs;
+        private backgroundDataInit backgroundData;
+        private string? comPort;
+        SerialPort? hostNode;
 
         // this is basically a list of timestamps with data
         // making the data and getter static allows for one copy
@@ -67,6 +73,7 @@ namespace test_project
             init = CreateForm<initForm>();
             fileExplorer = CreateForm<Form1>();
             graphs = CreateForm<dataForm>();
+            backgroundData = CreateForm<backgroundDataInit>(); 
 
 
             // attach the necessary events for each form
@@ -79,12 +86,15 @@ namespace test_project
             fileExplorer.FileLoad += LoadFile;
             fileExplorer.CancelDisplay += ReturnToHomeScreen;
 
-
+            // add any events to the background data screen
+            backgroundData.beginDataCollection += DataCollection;
+            
             // the only form showing at the beginning should be the initForm
             init.Show();
             fileExplorer.Hide();
             graphs.Hide();
 
+            
 
 
             // the rest of the program control should be handled through user events...
@@ -114,7 +124,11 @@ namespace test_project
         /// </summary>
         private void BackgroundDataReading(object? sender, EventArgs e)
         {
+            // after finishing this form, we should be able to open the data file
+            init.Hide();
 
+            // show the background data window
+            backgroundData.Show();
         }
 
         /// <summary>
@@ -147,6 +161,72 @@ namespace test_project
             fileExplorer.Hide();
             init.Refresh();
             init.Show();
+        }
+
+
+        private void DataCollection(object? sender, string[] output_info)
+        {
+            backgroundData.Hide();
+
+            // the file name and com port have been determined
+            comPort = output_info[0];
+            dataFile= output_info[1];
+
+            // open the com port to timeout every 10 seconds
+            hostNode = new SerialPort(comPort);
+            hostNode.ReadTimeout = 10000;
+            hostNode.DataReceived += DataRead;
+            hostNode.Open();
+
+
+            graphs.Refresh();
+            graphs.Show();
+
+            edf = new EnvironmentalDataFile(dataFile);
+        }
+
+        private void DataRead(object? sender, SerialDataReceivedEventArgs e)
+        {
+
+            List<string> input_data = new List<string>();   
+            StreamWriter writeFile = new StreamWriter(new FileStream(dataFile, FileMode.Append | FileMode.Create));
+
+            try
+            {
+                while (true)
+                {
+                    input_data.Add(hostNode.ReadLine());
+                }
+            }
+
+            catch
+            {
+                string[] data = input_data.ToArray();
+                foreach (string rawData in data)
+                {
+                    // disregard test readings
+                    if (rawData.Contains("TEST:"))
+                        continue;
+
+                    else
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = (rawData.IndexOf(' ') + 1); i < rawData.Length - 1; i++)
+                        {
+                            sb.Append(rawData[i]);
+                        }
+                        
+
+                        string sensorData = sb.ToString();
+                        writeFile.WriteLine(sensorData);
+                    }
+                }
+
+                
+
+                writeFile.Close();
+            }
+            
         }
 
 

@@ -61,6 +61,15 @@ namespace test_project
             }
         }
 
+        public TimeStamp()
+        {
+            timeValue = DateTime.Now;
+            numSensors = 1;
+            sensorIds = new int[] {-1};
+            sensorValues = new List<SensorReadings>();
+            sensorValues.Add(new SensorReadings());
+        }
+
         public DateTime getDate()
         {
             return this.timeValue;

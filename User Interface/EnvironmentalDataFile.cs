@@ -28,47 +28,79 @@ namespace test_project
 
             string[][] fileData = seperateTimeStamps(FilePath);
 
-            foreach (string[] dataPoint in fileData)
+            if (fileData == null || fileData.Length == 0)
             {
-                dataPoints.Add(new TimeStamp(dataPoint));
+                // this creates a blank timestamp of 0 
+                dataPoints.Add(new TimeStamp());
+            }
+
+            else
+            {
+                foreach (string[] dataPoint in fileData)
+                {
+                    dataPoints.Add(new TimeStamp(dataPoint));
+                }
             }
         }
 
-        private string[][] seperateTimeStamps(string FileName)
+        private string[][]? seperateTimeStamps(string FileName)
         {
             List<string> newTimeStamp = new List<string>();
             List<string[]> envDataFile = new List<string[]>();
             string[] tempHolder;
-            var file = new StreamReader(new FileStream(FileName, FileMode.Open));
-            
-            string? newLine;
 
-            // while not at end of file
-            do
+            // in the case that we havent read any data yet, we need to open a blank window
+            try
             {
-                // while entire string is not a newline character
+                var file = new StreamReader(new FileStream(FileName, FileMode.Open));
+                // while not at end of file
+
+                string? newLine;
+
                 do
                 {
-                    newLine = file.ReadLine();
-
-                    if(newLine == null)
+                    // while entire string is not a newline character
+                    do
                     {
-                        break;
-                    }
+                        newLine = file.ReadLine();
 
-                    if (!newLine.Equals(null) && !newLine.Equals(""))
-                    {
-                        newTimeStamp.Add(newLine);
-                    }
-                } while (!newLine.Equals(null) && !newLine.Equals(""));
+                        if (newLine == null)
+                        {
+                            break;
+                        }
 
-                tempHolder = newTimeStamp.ToArray();
-                envDataFile.Add(tempHolder);
-                newTimeStamp.Clear();
+                        if (!newLine.Equals(null) && !newLine.Equals(""))
+                        {
+                            newTimeStamp.Add(newLine);
+                        }
+                    } while (!newLine.Equals(null) && !newLine.Equals(""));
 
-            } while (file.Peek() >= 0);
+                    tempHolder = newTimeStamp.ToArray();
+                    envDataFile.Add(tempHolder);
+                    newTimeStamp.Clear();
 
-            return envDataFile.ToArray();
+                } while (file.Peek() >= 0);
+
+                file.Close();
+
+                if (envDataFile.Count > 1)
+                {
+                    return envDataFile.ToArray();
+                }
+
+                else
+                {
+                    return null;
+                }
+            }
+
+            catch (IOException ex)
+            {
+                return null;
+            }
+
+
+            
         }
 
 

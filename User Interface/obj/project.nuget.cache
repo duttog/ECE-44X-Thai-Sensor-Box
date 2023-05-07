@@ -1,15 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "tmlCI6e7+N3taNOgNGJZtpNFnhUJx8x6e60CBLdsRr8s9m2GdT4EmG4cg4i+rhg2FuJyGWTwKUOCChmJ9t+N3g==",
+  "dgSpecHash": "y8XQ2yzHVSC8LWx0Cdx5D1pFKEznQFo2eUdtswLNrgISDFfagqo0c8bvlf/dcmjahrSoeV6lAvSOqw7vvFvs+w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\blake\\source\\repos\\duttog\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
+  "projectFilePath": "C:\\Users\\Blake\\source\\repos\\ECE-44X-Thai-Sensor-Box\\User Interface\\test_project.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\blake\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.4\\microsoft.netcore.platforms.3.1.4.nupkg.sha512",
-    "C:\\Users\\blake\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\blake\\.nuget\\packages\\scottplot\\4.1.63\\scottplot.4.1.63.nupkg.sha512",
-    "C:\\Users\\blake\\.nuget\\packages\\scottplot.winforms\\4.1.63\\scottplot.winforms.4.1.63.nupkg.sha512",
-    "C:\\Users\\blake\\.nuget\\packages\\system.drawing.common\\4.7.2\\system.drawing.common.4.7.2.nupkg.sha512",
-    "C:\\Users\\blake\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+    "C:\\Users\\Blake\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.4\\microsoft.netcore.platforms.3.1.4.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\runtime.linux-arm.runtime.native.system.io.ports\\7.0.0\\runtime.linux-arm.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\runtime.linux-arm64.runtime.native.system.io.ports\\7.0.0\\runtime.linux-arm64.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\runtime.linux-x64.runtime.native.system.io.ports\\7.0.0\\runtime.linux-x64.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\runtime.native.system.io.ports\\7.0.0\\runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\runtime.osx-arm64.runtime.native.system.io.ports\\7.0.0\\runtime.osx-arm64.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\runtime.osx-x64.runtime.native.system.io.ports\\7.0.0\\runtime.osx-x64.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\scottplot\\4.1.63\\scottplot.4.1.63.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\scottplot.winforms\\4.1.63\\scottplot.winforms.4.1.63.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\system.drawing.common\\4.7.2\\system.drawing.common.4.7.2.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\system.io.ports\\7.0.0\\system.io.ports.7.0.0.nupkg.sha512",
+    "C:\\Users\\Blake\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }
