@@ -114,7 +114,7 @@ sensor_data sensors = {
     }
   }
 
-  //If it has not been encounter, add it to the messages array
+  //If it has not been encountered, add it to the messages array
   messages[message_index] = buf[1];
   message_index++;
   message_index = message_index % 10;
@@ -376,7 +376,7 @@ void setup() {
     msg_id = random(0, 255); //Random byte identifier
     uint8_t msg[4] = {48, msg_id, 255, 0}; //0 identifier is for address request, 1 is for sensor reading, 2 is for error 
     Serial.print(F("Address request message: "));
-    Serial.print((char*)msg);
+    Serial.println((char*)msg);
     rf95.send(msg, sizeof(msg));
     rf95.waitPacketSent();
 
@@ -386,8 +386,10 @@ void setup() {
       uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
       uint8_t len = sizeof(buf);
 
+      Serial.println(buf[3]);
+
       //Make sure that the message is received properly
-      if(rf95.recv(buf, &len) && buf[1] == msg_id){
+      if(rf95.recv(buf, &len) && (buf[1] == (msg_id + 1))){
         address = buf[3];
       }
     }
@@ -454,17 +456,19 @@ void loop() {
   }
 
   /*If the message has been acknowledged, create a new sensor data packet*/
-  if(acknowledged == true){
+  if(acknowledged == false){
     read_sensors();
     create_packet();
-  }else{
     rf95.send(sensor_data_packet, PACKET_BYTES);
     rf95.waitPacketSent();
   }
 
   /*Send sensor data every 5 minutes, for now*/
-  if(millis() - lastmillis >= 300000){
+  /*SET AT 30 SECONDS RIGHT NOW FOR TESTING PURPOSES*/
+  if(millis() - lastmillis >= 60000){
     lastmillis = millis();
+    read_sensors();
+    create_packet();
     rf95.send(sensor_data_packet, PACKET_BYTES);
     rf95.waitPacketSent();
     acknowledged = false;

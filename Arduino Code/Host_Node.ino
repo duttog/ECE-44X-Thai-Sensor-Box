@@ -55,7 +55,7 @@ typedef struct{
 
 sensor_data readings[16];
 
-const float zeroWindAdjustment =  0.05; // negative numbers yield smaller wind speeds and vice versa.
+const float zeroWindAdjustment =  -0.1; // negative numbers yield smaller wind speeds and vice versa.
 
 unsigned long lastmillis;
 
@@ -105,6 +105,7 @@ void address_request(uint8_t *buf, uint8_t len){
   num_addresses++;
 
   /*Replace the source address with 0, and the destination with the new address*/
+  buf[1] = buf[1] + 1;
   buf[2] = 0;
   buf[3] = addr;
 
@@ -141,7 +142,12 @@ void address_request(uint8_t *buf, uint8_t len){
       num_addresses++;
       break;
     }
-  }   
+  }
+
+  if(num_addresses == 0){
+    addresses[num_addresses] = sender;
+    num_addresses++;
+  }
 
   memcpy(&readings[buf[2]], buf + 4, 14);
 
@@ -164,24 +170,10 @@ void address_request(uint8_t *buf, uint8_t len){
   zeroWind_volts = (zeroWind_ADunits * 0.0048828125) - zeroWindAdjustment;
   WindSpeed_MPH =  pow(((RV_Wind_Volts - zeroWind_volts) /.2300) , 2.7265);
   readings[buf[2]].wind_speed_kph = WindSpeed_MPH * 1.609; 
-   
-  Serial.print(F("Temp:"));
-  Serial.print(readings[buf[2]].temperature);
-  Serial.print(",");
-  Serial.print(F("Humidity:"));
-  Serial.print(readings[buf[2]].humidity);
-  Serial.print(",");
-  Serial.print(F("Wind_Speed:"));
-  Serial.print(readings[buf[2]].wind_speed_kph);
-  Serial.print(",");
-  Serial.print(F("Water_Level:"));
-  Serial.print(readings[buf[2]].water_level);
-  Serial.print(",");
-  Serial.print("Packet_No:");
-  Serial.println(buf[1]);
 
   sender = buf[2];
   buf[0] = '3'; //ACK message indicator
+  buf[1] = buf[1] + 1;
   buf[2] = 0;
   buf[3] = sender;
   buf[4] = 'A';
@@ -190,6 +182,30 @@ void address_request(uint8_t *buf, uint8_t len){
   uint8_t s = 7;
   rf95.send(buf, s);
   rf95.waitPacketSent();
+  
+
+  /*The following prints are for debugging purposes only*/
+  /*
+  Serial.print(F("TEST: "));
+  Serial.print(F("Node:"));
+  Serial.print(sender);
+  Serial.print(",");
+  Serial.print(F("Temp:"));
+  Serial.print(readings[sender].temperature);
+  Serial.print(",");
+  Serial.print(F("Humidity:"));
+  Serial.print(readings[sender].humidity);
+  Serial.print(",");
+  Serial.print(F("Wind_Speed:"));
+  Serial.print(readings[sender].wind_speed_kph);
+  Serial.print(",");
+  Serial.print(F("Water_Level:"));
+  Serial.print(readings[sender].water_level);
+  Serial.print(",");
+  Serial.print("Packet_No:");
+  Serial.println(buf[1]);*/
+
+  
   
 }
 
@@ -293,6 +309,7 @@ void loop() {
 
       /*Iterate through the addresses and send the sensor data for each one*/
      
+      Serial.print(F("READING:   "));
       Serial.print(F("Node:"));
       Serial.print(addresses[i]);
       Serial.print(F(",")); 
@@ -307,10 +324,11 @@ void loop() {
       Serial.print(",");
       Serial.print(F("Water_Level:"));
       Serial.print(readings[addresses[i]].water_level);
+      Serial.println();
 
     }   
     
-    /*TODO: Remove any nodes from the address list that did not send data within the 15
+    /* Remove any nodes from the address list that did not send data within the 15
       minute time frame*/
     for(int i = 0; i < num_addresses; i++){
 
