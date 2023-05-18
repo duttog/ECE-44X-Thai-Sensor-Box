@@ -176,6 +176,9 @@ sensor_data sensors = {
   uint8_t sender = buf[2];
   uint8_t dest = buf[3];
 
+  if(sender == address){
+    return;
+  }
 
   /*If the sender is on the address list, rebroadcast*/
   bool sender_path = false;
@@ -209,6 +212,10 @@ sensor_data sensors = {
   /*Pull out the source and destination*/
   uint8_t source = buf[2];
   uint8_t dest = buf[3];
+
+  if(source == address){
+    return;
+  }
 
   /*If this node has seen the message before, drop it*/
   for(int i = 0; i < 10; i++){
@@ -250,6 +257,9 @@ void handle_ack(uint8_t *buf, uint8_t len){
 
   uint8_t sender = buf[2];
   uint8_t dest = buf[3];
+  if(sender == address){
+    return;
+  }
   /* If this node is the intended recipient, mark that the sensor packet is acknowledged
      so that it will stop sending repeats*/
   if(sender == 0 && dest == address){
