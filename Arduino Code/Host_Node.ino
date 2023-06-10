@@ -55,7 +55,7 @@ typedef struct{
 
 sensor_data readings[16];
 
-const float zeroWindAdjustment =  -0.1; // negative numbers yield smaller wind speeds and vice versa.
+const float zeroWindAdjustment =  -0.5; // negative numbers yield smaller wind speeds and vice versa.
 
 unsigned long lastmillis;
 
